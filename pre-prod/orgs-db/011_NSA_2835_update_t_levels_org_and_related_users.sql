@@ -2,13 +2,16 @@ BEGIN TRAN TLEVELSORGUPDATE
 
 BEGIN TRY
 
-    DECLARE @orgName VARCHAR(500) = 'PEARSON EDUCATION LIMITED';
+    DECLARE @orgNameNEW VARCHAR(500) = 'PEARSON EDUCATION LIMITED';
+    DECLARE @orgNameOLD VARCHAR(500) = 'PEARSON PLC';
     DECLARE @serviceName VARCHAR(500) = 'T Level Results and Certification';
-    DECLARE @orgId UNIQUEIDENTIFIER;
+    DECLARE @orgIdNEW UNIQUEIDENTIFIER;
+    DECLARE @orgIdOLD UNIQUEIDENTIFIER;
     DECLARE @serviceId UNIQUEIDENTIFIER;
 
     --get organisation Id based on name, if more than one found it will fail and go to catch block
-    SET @orgId = (SELECT id FROM organisation WHERE name = @orgName);
+    SET @orgIdNEW = (SELECT id FROM organisation WHERE name = @orgNameNEW);
+    SET @orgIdOLD = (SELECT id FROM organisation WHERE name = @orgNameOLD);
 
     --get service Id based on name, if more than one found it will fail and go to catch block
     SET @serviceId = (SELECT id FROM Service WHERE name = @serviceName);
@@ -18,13 +21,16 @@ BEGIN TRY
             -- Step 2) update the users to point to the correct organisation
             UPDATE
                 user_service_roles
-            SET organisation_id = @orgId
-                WHERE service_id = @serviceId;
+            SET organisation_id = @orgIdNEW
+                WHERE service_id = @serviceId
+                  AND organisation_id = @orgIdOLD;
 
             UPDATE
                 user_services
-            SET organisation_id = @orgId
-                WHERE service_id = @serviceId;
+            SET organisation_id = @orgIdNEW
+                WHERE service_id = @serviceId
+                  AND organisation_id = @orgIdOLD;
+
         END
 
     ROLLBACK TRAN TLEVELSORGUPDATE;
