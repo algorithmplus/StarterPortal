@@ -3,10 +3,9 @@ BEGIN TRAN ADDROATPORGS
 DECLARE @organisationId UNIQUEIDENTIFIER
 DECLARE @legacyId AS BIGINT;
 
-SET @organisationId = NEWID()
-SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
-
 -- PLYMOUTH ARGYLE FOOTBALL IN THE COMMUNITY TRUST
+SET @organisationId = NEWID();
+SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
   IF NOT EXISTS (SELECT * FROM organisation WHERE UKPRN = '10035178')
     BEGIN
       INSERT INTO organisation(id, name, Category, UKPRN, Status, legacyId, createdAt, updatedAt)
@@ -14,6 +13,8 @@ SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
     END;
 
 -- UK COLLEGE OF BUSINESS
+SET @organisationId = NEWID();
+SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
   IF NOT EXISTS (SELECT * FROM organisation WHERE UKPRN = '10047502')
     BEGIN
       INSERT INTO organisation(id, name, Category, UKPRN, Status, legacyId, createdAt, updatedAt)
@@ -21,6 +22,8 @@ SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
     END;
 
 -- NCH AT NORTHEASTERN LIMITED
+SET @organisationId = NEWID();
+SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
   IF NOT EXISTS (SELECT * FROM organisation WHERE UKPRN = '10048199')
     BEGIN
       INSERT INTO organisation(id, name, Category, UKPRN, Status, legacyId, createdAt, updatedAt)
@@ -28,6 +31,8 @@ SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
     END;
 
 -- PRAGMATIC CONSULTING LIMITED
+SET @organisationId = NEWID();
+SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
   IF NOT EXISTS (SELECT * FROM organisation WHERE UKPRN = '10056336')
     BEGIN
       INSERT INTO organisation(id, name, Category, UKPRN, Status, legacyId, createdAt, updatedAt)
@@ -35,6 +40,8 @@ SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
     END;
 
 -- INFRATEC-UK LIMITED
+SET @organisationId = NEWID();
+SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
   IF NOT EXISTS (SELECT * FROM organisation WHERE UKPRN = '10061558')
     BEGIN
       INSERT INTO organisation(id, name, Category, UKPRN, Status, legacyId, createdAt, updatedAt)
@@ -42,6 +49,8 @@ SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
     END;
 
 -- BROOKS AND KIRK (ASSESSOR TRAINING) LIMITED
+SET @organisationId = NEWID();
+SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
   IF NOT EXISTS (SELECT * FROM organisation WHERE UKPRN = '10062398')
     BEGIN
       INSERT INTO organisation(id, name, Category, UKPRN, Status, legacyId, createdAt, updatedAt)
@@ -49,6 +58,8 @@ SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
     END;
 
 -- LEARNING CURVE (DEVELOPMENT) LIMITED
+SET @organisationId = NEWID();
+SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
   IF NOT EXISTS (SELECT * FROM organisation WHERE UKPRN = '10063806')
     BEGIN
       INSERT INTO organisation(id, name, Category, UKPRN, Status, legacyId, createdAt, updatedAt)
@@ -56,6 +67,8 @@ SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
     END;
 
 -- A W JENKINSON TRANSPORT LIMITED
+SET @organisationId = NEWID();
+SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
   IF NOT EXISTS (SELECT * FROM organisation WHERE UKPRN = '10064431')
     BEGIN
       INSERT INTO organisation(id, name, Category, UKPRN, Status, legacyId, createdAt, updatedAt)
@@ -63,6 +76,8 @@ SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
     END;
 
 -- LEAN CONSTRUCT LIMITED
+SET @organisationId = NEWID();
+SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
   IF NOT EXISTS (SELECT * FROM organisation WHERE UKPRN = '10065010')
     BEGIN
       INSERT INTO organisation(id, name, Category, UKPRN, Status, legacyId, createdAt, updatedAt)
@@ -70,6 +85,8 @@ SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
     END;
 
 -- KIDS PLANET DAY NURSERIES LIMITED
+SET @organisationId = NEWID();
+SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
   IF NOT EXISTS (SELECT * FROM organisation WHERE UKPRN = '10066783')
     BEGIN
       INSERT INTO organisation(id, name, Category, UKPRN, Status, legacyId, createdAt, updatedAt)
@@ -77,6 +94,8 @@ SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
     END;
 
 -- UTOPY C.I.C.
+SET @organisationId = NEWID();
+SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
   IF NOT EXISTS (SELECT * FROM organisation WHERE UKPRN = '10068386')
     BEGIN
       INSERT INTO organisation(id, name, Category, UKPRN, Status, legacyId, createdAt, updatedAt)
@@ -84,6 +103,8 @@ SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
     END;
 
 -- HOLLAND & BARRETT RETAIL LIMITED
+SET @organisationId = NEWID();
+SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
   IF NOT EXISTS (SELECT * FROM organisation WHERE UKPRN = '10081176')
     BEGIN
       INSERT INTO organisation(id, name, Category, UKPRN, Status, legacyId, createdAt, updatedAt)
@@ -91,6 +112,8 @@ SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
     END;
 
 -- CVP CONSULT LTD
+SET @organisationId = NEWID();
+SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
   IF NOT EXISTS (SELECT * FROM organisation WHERE UKPRN = '10082269')
     BEGIN
       INSERT INTO organisation(id, name, Category, UKPRN, Status, legacyId, createdAt, updatedAt)
@@ -98,6 +121,8 @@ SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
     END;
 
 -- BISHOP FLEMING LLP
+SET @organisationId = NEWID();
+SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
   IF NOT EXISTS (SELECT * FROM organisation WHERE UKPRN = '10082311')
     BEGIN
       INSERT INTO organisation(id, name, Category, UKPRN, Status, legacyId, createdAt, updatedAt)
@@ -105,6 +130,8 @@ SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
     END;
 
 -- SAPPHIRE LOGISTICS & CONSULTANCY LTD
+SET @organisationId = NEWID();
+SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
   IF NOT EXISTS (SELECT * FROM organisation WHERE UKPRN = '10082452')
     BEGIN
       INSERT INTO organisation(id, name, Category, UKPRN, Status, legacyId, createdAt, updatedAt)
@@ -112,6 +139,8 @@ SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
     END;
 
 -- SOCIAL CHAIN LTD
+SET @organisationId = NEWID();
+SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
   IF NOT EXISTS (SELECT * FROM organisation WHERE UKPRN = '10082827')
     BEGIN
       INSERT INTO organisation(id, name, Category, UKPRN, Status, legacyId, createdAt, updatedAt)
@@ -119,6 +148,8 @@ SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
     END;
 
 -- A-SAFE UK LTD
+SET @organisationId = NEWID();
+SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
   IF NOT EXISTS (SELECT * FROM organisation WHERE UKPRN = '10083474')
     BEGIN
       INSERT INTO organisation(id, name, Category, UKPRN, Status, legacyId, createdAt, updatedAt)
@@ -126,6 +157,8 @@ SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
     END;
 
 -- FORUM FOR SUSTAINABLE NEW VENTURE
+SET @organisationId = NEWID();
+SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
   IF NOT EXISTS (SELECT * FROM organisation WHERE UKPRN = '10084420')
     BEGIN
       INSERT INTO organisation(id, name, Category, UKPRN, Status, legacyId, createdAt, updatedAt)
@@ -133,6 +166,8 @@ SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
     END;
 
 -- BLUE LION LEARNING LIMITED
+SET @organisationId = NEWID();
+SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
   IF NOT EXISTS (SELECT * FROM organisation WHERE UKPRN = '10084461')
     BEGIN
       INSERT INTO organisation(id, name, Category, UKPRN, Status, legacyId, createdAt, updatedAt)
@@ -140,6 +175,8 @@ SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
     END;
 
 -- BROWNS STAMFORD LTD
+SET @organisationId = NEWID();
+SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
   IF NOT EXISTS (SELECT * FROM organisation WHERE UKPRN = '10084572')
     BEGIN
       INSERT INTO organisation(id, name, Category, UKPRN, Status, legacyId, createdAt, updatedAt)
@@ -147,6 +184,8 @@ SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
     END;
 
 -- GYM FREE LIMITED
+SET @organisationId = NEWID();
+SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
   IF NOT EXISTS (SELECT * FROM organisation WHERE UKPRN = '10084785')
     BEGIN
       INSERT INTO organisation(id, name, Category, UKPRN, Status, legacyId, createdAt, updatedAt)
@@ -154,6 +193,8 @@ SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
     END;
 
 -- MARSHALL OF CAMBRIDGE (HOLDINGS) LIMITED
+SET @organisationId = NEWID();
+SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
   IF NOT EXISTS (SELECT * FROM organisation WHERE UKPRN = '10084918')
     BEGIN
       INSERT INTO organisation(id, name, Category, UKPRN, Status, legacyId, createdAt, updatedAt)
@@ -161,6 +202,8 @@ SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
     END;
 
 -- UNIVERSITY HOSPITALS OF DERBY AND BURTON NHS FOUNDATION TRUST
+SET @organisationId = NEWID();
+SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
   IF NOT EXISTS (SELECT * FROM organisation WHERE UKPRN = '10084937')
     BEGIN
       INSERT INTO organisation(id, name, Category, UKPRN, Status, legacyId, createdAt, updatedAt)
@@ -168,6 +211,8 @@ SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
     END;
 
 -- LONDON NORTH EASTERN RAILWAY LIMITED
+SET @organisationId = NEWID();
+SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
   IF NOT EXISTS (SELECT * FROM organisation WHERE UKPRN = '10085306')
     BEGIN
       INSERT INTO organisation(id, name, Category, UKPRN, Status, legacyId, createdAt, updatedAt)
@@ -175,6 +220,8 @@ SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
     END;
 
 -- NORTHERN TRAINS LIMITED
+SET @organisationId = NEWID();
+SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
   IF NOT EXISTS (SELECT * FROM organisation WHERE UKPRN = '10085493')
     BEGIN
       INSERT INTO organisation(id, name, Category, UKPRN, Status, legacyId, createdAt, updatedAt)
