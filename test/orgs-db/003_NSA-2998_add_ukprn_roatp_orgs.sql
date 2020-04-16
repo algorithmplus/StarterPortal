@@ -1,0 +1,19 @@
+BEGIN TRAN ADDUKRPNTOROATPORGS
+
+UPDATE organisation
+    SET UKPRN= '10043978', UpdatedAt=GETDATE()
+    WHERE id='e49e73d0-bea4-4246-b680-141e9bab35a2';
+
+UPDATE organisation
+    SET UKPRN= '10052835', UpdatedAt=GETDATE()
+    WHERE id='d2d9012b-5304-4b21-bae5-35aeaeddbd41';
+
+UPDATE organisation
+    SET UKPRN= '10059861', UpdatedAt=GETDATE()
+    WHERE id='af316b79-9b37-4cce-84cd-51c7cba1c9cb';
+
+UPDATE organisation
+    SET UKPRN= '10060111', UpdatedAt=GETDATE()
+    WHERE id='25ab7124-da90-40d8-83e2-9893d02b994d';
+
+ROLLBACK TRAN ADDUKRPNTOROATPORGS
