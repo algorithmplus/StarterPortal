@@ -10,7 +10,7 @@ DECLARE @policyid UNIQUEIDENTIFIER
     Set @boltonUniOrgId = (select top 1 Id from [organisation] where UKPRN = '10006841' and URN = '133794');
     Set @bathUniOrgId = (select top 1 Id from [organisation] where UKPRN = '10000571' and URN = '133790');
     Set @teacherEAAServiceId = (select top 1 id from [service] where Name = 'Teacher Services - Employer Access - Agent');
-    Set @EAAProviderRoleId = (select top 1 Id from role where ApplicationId = @teacherEAAServiceId and Name= 'Evolve - Employer Access - Agent');
+    Set @EAAProviderRoleId = (select top 1 Id from role where ApplicationId = @teacherEAAServiceId and Name= 'Teacher Services – Organisations');
 
     Set @policyid = newid();
 

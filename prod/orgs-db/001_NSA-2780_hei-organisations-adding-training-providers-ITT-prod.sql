@@ -10,7 +10,7 @@ DECLARE @ITTpolicyid UNIQUEIDENTIFIER
     Set @boltonUniOrgId = (select top 1 Id from [organisation] where UKPRN = '10006841' and URN = '133794');
     Set @bathUniOrgId = (select top 1 Id from [organisation] where UKPRN = '10000571' and URN = '133790');
     Set @teacherITTServiceId = (select top 1 id from [service] where Name = 'Teacher Services - ITT Provider');
-    Set @ITTProviderRoleId = (select top 1 Id from role where ApplicationId = @teacherEAAServiceId and Name= 'ITT Provider');
+    Set @ITTProviderRoleId = (select top 1 Id from role where ApplicationId = @teacherITTServiceId and Name= 'ITT Provider');
 
     Set @ITTpolicyid = newid();
 
