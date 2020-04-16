@@ -5,15 +5,15 @@ UPDATE organisation
     WHERE id='013e8bdc-0c75-44cf-9ce5-071d8a7e3517';
 
 UPDATE organisation
-    SET UKPRN= '10043978', UpdatedAt=GETDATE()
+    SET UKPRN= '10052835', UpdatedAt=GETDATE()
     WHERE id='00d60b01-37fb-4387-80d1-bd5a36e9d817';
 
 UPDATE organisation
-    SET UKPRN= '10043978', UpdatedAt=GETDATE()
+    SET UKPRN= '10059861', UpdatedAt=GETDATE()
     WHERE id='5062a5ea-8f8a-45c6-b199-57c06d8aa23e';
 
 UPDATE organisation
-    SET UKPRN= '10043978', UpdatedAt=GETDATE()
+    SET UKPRN= '10060111', UpdatedAt=GETDATE()
     WHERE id='b9b6ecb5-d351-471c-a473-83772f715cf2';
 
 ROLLBACK TRAN ADDUKRPNTOROATPORGS
