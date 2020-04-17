@@ -164,8 +164,6 @@ BEGIN
         ELSE
             PRINT 'The organisation ' + @orgName + ' was not closed as it could not be uniquely identified';
 
-    SELECT * FROM organisation WHERE name = @orgName;
-
     -- get next organisation name
     FETCH NEXT FROM db_cursor INTO @orgName;
 END;
