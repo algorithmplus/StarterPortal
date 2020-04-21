@@ -6,9 +6,9 @@ IF NOT EXISTS(SELECT *
 
     CREATE SEQUENCE [dbo].[role_numeric_id_sequence]
         AS [bigint]
-        START WITH 197
+        START WITH 20000
         INCREMENT BY 1
-        MINVALUE 197
+        MINVALUE 20000
         MAXVALUE 9223372036854775807
         CACHE 50
 GO
