@@ -39,7 +39,7 @@ VALUES (NEWID(), @policyId, 'organisation.id', 'is', @ncfeOrgId, GETDATE(), GETD
 SET @roleId = NEWID();
 SET @numericId = NEXT VALUE FOR role_numeric_id_sequence;
 INSERT INTO Role (Id, Name, ApplicationId, Status, CreatedAt, UpdatedAt, Code, NumericId, ParentId)
-VALUES (@roleId, 'Site Administrator', NEWID(), 1, GETDATE(), GETDATE(), 't_levels_site_admin', @numericId, null);
+VALUES (@roleId, 'Site Administrator', @serviceId, 1, GETDATE(), GETDATE(), 't_levels_site_admin', @numericId, null);
 
 INSERT INTO PolicyRole (PolicyId, RoleId, CreatedAt, UpdatedAt)
 VALUES (@policyId, @roleId, GETDATE(), GETDATE());
