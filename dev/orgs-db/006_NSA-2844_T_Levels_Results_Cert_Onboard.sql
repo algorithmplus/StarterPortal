@@ -14,7 +14,7 @@ DECLARE @cityGuildsOrgId UNIQUEIDENTIFIER = '7e9e54e6-3524-4e3a-b467-2c2fa12c732
 --TO DO obtain redirectUrl and post logout url
 SET @serviceId = NEWID();
 INSERT INTO service (id, name, description, clientId, clientSecret, apiSecret, tokenEndpointAuthMethod, serviceHome, postResetUrl, isExternalService, isMigrated, parentId, isChildService)
-VALUES (@serviceId, 'T Level Results and Certification', 'T Level Results and Certification', 'TLevelsRC', NULL, NULL, 'client_secret_post', NULL, NULL, 1, 0, NULL, 0);
+VALUES (@serviceId, 'T Level Results and Certification', 'T Level Results and Certification', 'TLevelsRC', NULL, NULL, 'client_secret_post', 'https://manage-tlevel-results.tlevels.gov.uk/Dashboard', NULL, 1, 0, NULL, 0);
 INSERT INTO serviceRedirectUris (serviceId, redirectUrl)
 VALUES (@serviceId, 'https://manage-tlevel-results.tlevels.gov.uk/auth/cb');
 INSERT INTO servicePostLogoutRedirectUris (serviceId, redirectUrl)
