@@ -26,16 +26,6 @@ VALUES (@policyId, 'T Levels and Certification', @serviceId, 1, GETDATE(), GETDA
 
 --Create Policy Conditions
 INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-VALUES
---NCFE
-(NEWID(), @policyId, 'organisation.UKPRN', 'is', '10009696', GETDATE(), GETDATE()),
---Pearson Education Ltd
-(NEWID(), @policyId, 'organisation.UKPRN', 'is', '10022490', GETDATE(), GETDATE()),
---City and Guilds
-(NEWID(), @policyId, 'organisation.UKPRN', 'is', '10009931', GETDATE(), GETDATE());
-
---Create Policy Conditions (alternative version, based on actual org IDs)
-INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
 VALUES (NEWID(), @policyId, 'organisation.id', 'is', '72ed2dcb-7fa3-456c-9618-21f52c314d5', GETDATE(), GETDATE()),
         (NEWID(), @policyId, 'organisation.id', 'is', 'be17ddce-c8fd-45ce-b4b4-4a98faebc445', GETDATE(), GETDATE()),
         (NEWID(), @policyId, 'organisation.id', 'is', '180b2f48-129d-4400-a2e4-1aa820d8ba08', GETDATE(), GETDATE());
