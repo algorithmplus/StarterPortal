@@ -4,6 +4,7 @@ DECLARE @roleId UNIQUEIDENTIFIER;
 DECLARE @policyId UNIQUEIDENTIFIER;
 DECLARE @serviceId UNIQUEIDENTIFIER;
 DECLARE @orgId UNIQUEIDENTIFIER;
+DECLARE @manageId UNIQUEIDENTIFIER;
 DECLARE @numericId BIGINT;
 
 DECLARE @ncfeOrgId UNIQUEIDENTIFIER = '1c058b23-1d46-422e-bc6d-34a04d7a7e7d';
@@ -61,5 +62,78 @@ VALUES (@roleId, 'Providers Editor', @serviceId, 1, GETDATE(), GETDATE(), 't_lev
 INSERT INTO PolicyRole (PolicyId, RoleId, CreatedAt, UpdatedAt)
 VALUES (@policyId, @roleId, GETDATE(), GETDATE());
 
+	-- Manage Roles and Service Config
+
+SET @manageId = (SELECT id
+                                    FROM service
+                                    WHERE clientId = 'manage')
+
+INSERT INTO Role
+(Id, Name, ApplicationId, CreatedAt, UpdatedAt, Code, NumericId, ParentId)
+SELECT NEWID(),
+     name + ' - Service Configuration',
+     @manageId,
+     GETDATE(),
+     GETDATE(),
+     UPPER(cast(id as varchar(40))) + '_serviceconfig',
+     ROW_NUMBER() over (ORDER BY id),
+     NULL
+FROM service
+WHERE id = @serviceId
+
+--service banner
+
+SET @manageId = (SELECT id
+                                    FROM service
+                                    WHERE clientId = 'manage')
+
+INSERT INTO Role
+(Id, Name, ApplicationId, CreatedAt, UpdatedAt, Code, NumericId, ParentId)
+SELECT NEWID(),
+     name + ' - Service Banner',
+     @manageId,
+     GETDATE(),
+     GETDATE(),
+     UPPER(cast(id as varchar(40))) + '_serviceBanner',
+     ROW_NUMBER() over (ORDER BY id),
+     NULL
+FROM service
+WHERE id = @serviceId
+
+--service access management
+SET @manageId = (SELECT id
+                                    FROM service
+                                    WHERE clientId = 'manage')
+
+INSERT INTO Role
+(Id, Name, ApplicationId, CreatedAt, UpdatedAt, Code, NumericId, ParentId)
+SELECT NEWID(),
+     name + ' - Service Access Management',
+     @manageId,
+     GETDATE(),
+     GETDATE(),
+     UPPER(cast(id as varchar(40))) + '_accessManage',
+     ROW_NUMBER() over (ORDER BY id),
+     NULL
+FROM service
+WHERE id = @serviceId
+
+--service support
+SET @manageId = (SELECT id
+                                    FROM service
+                                    WHERE clientId = 'manage')
+
+INSERT INTO Role
+(Id, Name, ApplicationId, CreatedAt, UpdatedAt, Code, NumericId, ParentId)
+SELECT NEWID(),
+     name + ' - Service Support',
+     @manageId,
+     GETDATE(),
+     GETDATE(),
+     UPPER(cast(id as varchar(40))) + '_serviceSup',
+     ROW_NUMBER() over (ORDER BY id),
+     NULL
+FROM service
+WHERE id = @serviceId
 
 ROLLBACK TRAN TLEVELSRESULTSCERTONBOARD
