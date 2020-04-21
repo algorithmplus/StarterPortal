@@ -57,5 +57,66 @@ VALUES (@roleId, 'Providers Editor', @serviceId, 1, GETDATE(), GETDATE(), 't_lev
 INSERT INTO PolicyRole (PolicyId, RoleId, CreatedAt, UpdatedAt)
 VALUES (@policyId, @roleId, GETDATE(), GETDATE());
 
+--Add Manage Roles
+--service Config
+SET @manageId = (SELECT id FROM service WHERE clientId = 'manage')
+SET @numericId = NEXT VALUE FOR role_numeric_id_sequence;
+INSERT INTO Role
+(Id, Name, ApplicationId, CreatedAt, UpdatedAt, Code, NumericId, ParentId)
+SELECT NEWID(),
+     name + ' - Service Configuration',
+     @manageId,
+     GETDATE(),
+     GETDATE(),
+     UPPER(cast(id as varchar(40))) + '_serviceconfig',
+     @numericId,
+     NULL
+FROM service
+WHERE id = @serviceId
+
+--service banner
+SET @numericId = NEXT VALUE FOR role_numeric_id_sequence;
+INSERT INTO Role
+(Id, Name, ApplicationId, CreatedAt, UpdatedAt, Code, NumericId, ParentId)
+SELECT NEWID(),
+     name + ' - Service Banner',
+     @manageId,
+     GETDATE(),
+     GETDATE(),
+     UPPER(cast(id as varchar(40))) + '_serviceBanner',
+     @numericId,
+     NULL
+FROM service
+WHERE id = @serviceId
+
+--service access management
+SET @numericId = NEXT VALUE FOR role_numeric_id_sequence;
+INSERT INTO Role
+(Id, Name, ApplicationId, CreatedAt, UpdatedAt, Code, NumericId, ParentId)
+SELECT NEWID(),
+     name + ' - Service Access Management',
+     @manageId,
+     GETDATE(),
+     GETDATE(),
+     UPPER(cast(id as varchar(40))) + '_accessManage',
+     @numericId,
+     NULL
+FROM service
+WHERE id = @serviceId
+
+--service support
+SET @numericId = NEXT VALUE FOR role_numeric_id_sequence;
+INSERT INTO Role
+(Id, Name, ApplicationId, CreatedAt, UpdatedAt, Code, NumericId, ParentId)
+SELECT NEWID(),
+     name + ' - Service Support',
+     @manageId,
+     GETDATE(),
+     GETDATE(),
+     UPPER(cast(id as varchar(40))) + '_serviceSup',
+     @numericId,
+     NULL
+FROM service
+WHERE id = @serviceId
 
 ROLLBACK TRAN TLEVELSRESULTSCERTONBOARD

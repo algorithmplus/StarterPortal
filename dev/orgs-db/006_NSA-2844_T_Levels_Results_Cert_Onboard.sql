@@ -62,12 +62,10 @@ VALUES (@roleId, 'Providers Editor', @serviceId, 1, GETDATE(), GETDATE(), 't_lev
 INSERT INTO PolicyRole (PolicyId, RoleId, CreatedAt, UpdatedAt)
 VALUES (@policyId, @roleId, GETDATE(), GETDATE());
 
-	-- Manage Roles and Service Config
-
-SET @manageId = (SELECT id
-                                    FROM service
-                                    WHERE clientId = 'manage')
-
+--Add Manage Roles
+--service Config
+SET @manageId = (SELECT id FROM service WHERE clientId = 'manage')
+SET @numericId = NEXT VALUE FOR role_numeric_id_sequence;
 INSERT INTO Role
 (Id, Name, ApplicationId, CreatedAt, UpdatedAt, Code, NumericId, ParentId)
 SELECT NEWID(),
@@ -76,17 +74,13 @@ SELECT NEWID(),
      GETDATE(),
      GETDATE(),
      UPPER(cast(id as varchar(40))) + '_serviceconfig',
-     ROW_NUMBER() over (ORDER BY id),
+     @numericId,
      NULL
 FROM service
 WHERE id = @serviceId
 
 --service banner
-
-SET @manageId = (SELECT id
-                                    FROM service
-                                    WHERE clientId = 'manage')
-
+SET @numericId = NEXT VALUE FOR role_numeric_id_sequence;
 INSERT INTO Role
 (Id, Name, ApplicationId, CreatedAt, UpdatedAt, Code, NumericId, ParentId)
 SELECT NEWID(),
@@ -95,16 +89,13 @@ SELECT NEWID(),
      GETDATE(),
      GETDATE(),
      UPPER(cast(id as varchar(40))) + '_serviceBanner',
-     ROW_NUMBER() over (ORDER BY id),
+     @numericId,
      NULL
 FROM service
 WHERE id = @serviceId
 
 --service access management
-SET @manageId = (SELECT id
-                                    FROM service
-                                    WHERE clientId = 'manage')
-
+SET @numericId = NEXT VALUE FOR role_numeric_id_sequence;
 INSERT INTO Role
 (Id, Name, ApplicationId, CreatedAt, UpdatedAt, Code, NumericId, ParentId)
 SELECT NEWID(),
@@ -113,16 +104,13 @@ SELECT NEWID(),
      GETDATE(),
      GETDATE(),
      UPPER(cast(id as varchar(40))) + '_accessManage',
-     ROW_NUMBER() over (ORDER BY id),
+     @numericId,
      NULL
 FROM service
 WHERE id = @serviceId
 
 --service support
-SET @manageId = (SELECT id
-                                    FROM service
-                                    WHERE clientId = 'manage')
-
+SET @numericId = NEXT VALUE FOR role_numeric_id_sequence;
 INSERT INTO Role
 (Id, Name, ApplicationId, CreatedAt, UpdatedAt, Code, NumericId, ParentId)
 SELECT NEWID(),
@@ -131,7 +119,7 @@ SELECT NEWID(),
      GETDATE(),
      GETDATE(),
      UPPER(cast(id as varchar(40))) + '_serviceSup',
-     ROW_NUMBER() over (ORDER BY id),
+     @numericId,
      NULL
 FROM service
 WHERE id = @serviceId
