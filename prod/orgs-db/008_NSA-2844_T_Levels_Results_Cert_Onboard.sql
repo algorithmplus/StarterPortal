@@ -11,7 +11,6 @@ DECLARE @pearsonOrgId UNIQUEIDENTIFIER = 'be17ddce-c8fd-45ce-b4b4-4a98faebc445';
 DECLARE @cityGuildsOrgId UNIQUEIDENTIFIER = '180b2f48-129d-4400-a2e4-1aa820d8ba08';
 
 --Create service
---TO DO obtain redirectUrl and post logout url
 SET @serviceId = NEWID();
 INSERT INTO service (id, name, description, clientId, clientSecret, apiSecret, tokenEndpointAuthMethod, serviceHome, postResetUrl, isExternalService, isMigrated, parentId, isChildService)
 VALUES (@serviceId, 'T Level Results and Certification', 'T Level Results and Certification', 'TLevelsRC', NULL, NULL, 'client_secret_post', 'https://manage-tlevel-results.tlevels.gov.uk/Dashboard', NULL, 1, 0, NULL, 0);

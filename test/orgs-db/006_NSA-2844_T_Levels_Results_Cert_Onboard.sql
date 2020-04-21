@@ -6,14 +6,12 @@ DECLARE @serviceId UNIQUEIDENTIFIER;
 DECLARE @orgId UNIQUEIDENTIFIER;
 DECLARE @numericId BIGINT;
 
-DECLARE @ncfeOrgId UNIQUEIDENTIFIER = '1c058b23-1d46-422e-bc6d-34a04d7a7e7d';
-DECLARE @pearsonOrgId UNIQUEIDENTIFIER = 'b79a7d27-c62c-48b1-8ef7-fd16b8e737a9';
-DECLARE @cityGuildsOrgId UNIQUEIDENTIFIER = '7e9e54e6-3524-4e3a-b467-2c2fa12c732b';
+DECLARE @ncfeOrgId UNIQUEIDENTIFIER = '848d7fb9-adbd-47ec-a975-3ff9314323ea';
 
 --Create service
 SET @serviceId = NEWID();
 INSERT INTO service (id, name, description, clientId, clientSecret, apiSecret, tokenEndpointAuthMethod, serviceHome, postResetUrl, isExternalService, isMigrated, parentId, isChildService)
-VALUES (@serviceId, 'T Level Results and Certification', 'T Level Results and Certification', 'TLevelsRC', NULL, NULL, 'client_secret_post', 'https://manage-tlevel-results.tlevels.gov.uk/Dashboard', NULL, 1, 0, NULL, 0);
+VALUES (@serviceId, 'Dummy T Level Results and Certification', 'T Level Results and Certification', 'DummyTLevelsRC', NULL, NULL, 'client_secret_post', 'https://manage-tlevel-results.tlevels.gov.uk/Dashboard', NULL, 1, 0, NULL, 0);
 INSERT INTO serviceRedirectUris (serviceId, redirectUrl)
 VALUES (@serviceId, 'https://manage-tlevel-results.tlevels.gov.uk/auth/cb');
 INSERT INTO servicePostLogoutRedirectUris (serviceId, redirectUrl)
@@ -30,9 +28,7 @@ VALUES (@policyId, 'T Levels and Certification', @serviceId, 1, GETDATE(), GETDA
 
 --Create Policy Conditions
 INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-VALUES (NEWID(), @policyId, 'organisation.id', 'is', @ncfeOrgId, GETDATE(), GETDATE()),
-        (NEWID(), @policyId, 'organisation.id', 'is', @pearsonOrgId, GETDATE(), GETDATE()),
-        (NEWID(), @policyId, 'organisation.id', 'is', @cityGuildsOrgId, GETDATE(), GETDATE());
+VALUES (NEWID(), @policyId, 'organisation.id', 'is', @ncfeOrgId, GETDATE(), GETDATE());
 
 --Create Role 'Site Administrator' and link to policy
 SET @roleId = NEWID();
