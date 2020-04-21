@@ -26,9 +26,9 @@ VALUES (@policyId, 'T Levels and Certification', @serviceId, 1, GETDATE(), GETDA
 
 --Create Policy Conditions
 INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-VALUES (NEWID(), @policyId, 'organisation.id', 'is', '72ed2dcb-7fa3-456c-9618-21f52c314d5', GETDATE(), GETDATE()),
-        (NEWID(), @policyId, 'organisation.id', 'is', 'be17ddce-c8fd-45ce-b4b4-4a98faebc445', GETDATE(), GETDATE()),
-        (NEWID(), @policyId, 'organisation.id', 'is', '180b2f48-129d-4400-a2e4-1aa820d8ba08', GETDATE(), GETDATE());
+VALUES (NEWID(), @policyId, 'organisation.id', 'is', '1c058b23-1d46-422e-bc6d-34a04d7a7e7d', GETDATE(), GETDATE()),
+        (NEWID(), @policyId, 'organisation.id', 'is', 'b79a7d27-c62c-48b1-8ef7-fd16b8e737a9', GETDATE(), GETDATE()),
+        (NEWID(), @policyId, 'organisation.id', 'is', '7e9e54e6-3524-4e3a-b467-2c2fa12c732b', GETDATE(), GETDATE());
 
 --Create Role 'Site Administrator' and link to policy
 SET @roleId = NEWID();
