@@ -87,8 +87,25 @@ BEGIN TRY
                     SET code='t_levels_providers_editor',
                         UpdatedAt=GETDATE()
                     WHERE id='1e595172-c8d2-40b4-a221-d45643d32772';
+
             -- Step 5) add new policy and link with the three roles we kept
-            --TODO
+            --Create Policy
+            SET @policyId = NEWID();
+            INSERT INTO Policy (Id, Name, ApplicationId, Status, CreatedAt, UpdatedAt)
+            VALUES (@policyId, 'T Levels and Certification', @serviceId, 1, GETDATE(), GETDATE());
+
+            --Create Policy Conditions
+            INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
+            VALUES (NEWID(), @policyId, 'organisation.id', 'is', @ncfeOrgId, GETDATE(), GETDATE()),
+                (NEWID(), @policyId, 'organisation.id', 'is', @pearsonOrgId, GETDATE(), GETDATE()),
+                (NEWID(), @policyId, 'organisation.id', 'is', @cityGuildsOrgId, GETDATE(), GETDATE());
+
+            --Link Policy with roles kept
+            INSERT INTO PolicyRole (PolicyId, RoleId, CreatedAt, UpdatedAt)
+            VALUES 
+                (@policyId, '4100b34b-15e5-4429-b132-8b3dba5a0eb2', GETDATE(), GETDATE()),
+                (@policyId, '1e595172-c8d2-40b4-a221-d45643d32772', GETDATE(), GETDATE()),
+                (@policyId, 'd2132f32-597d-4efb-b9a1-6df866bdee0a', GETDATE(), GETDATE());
 
         END
 
