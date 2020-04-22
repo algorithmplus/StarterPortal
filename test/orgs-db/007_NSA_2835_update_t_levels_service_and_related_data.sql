@@ -14,11 +14,11 @@ BEGIN TRY
         BEGIN
 
             -- step 1) delete all policies (policy, policy conditions, and policyRoles) linked to the roles with that applicationId
-            
+
             --SELECT * FROM Policy WHERE ApplicationId = @serviceId;
-        
+
             INSERT INTO @policyIdList (Value) SELECT id FROM Policy WHERE ApplicationId = @serviceId;
-            
+
             --SELECT * FROM PolicyRole WHERE PolicyId IN (SELECT id FROM Policy WHERE ApplicationId = @serviceId)
             --SELECT * FROM @policyIdList
 
@@ -44,7 +44,7 @@ BEGIN TRY
                         FETCH NEXT FROM db_cursor INTO @policyId;
 
                     END
-                    
+
                 END
 
             DELETE FROM Policy
@@ -55,14 +55,15 @@ BEGIN TRY
 
             -- Step 2) modify user_service_roles so that we only have them pointing to one of the (duplicated) administrator roles
             UPDATE user_service_roles
-                SET role_id='4100b34b-15e5-4429-b132-8b3dba5a0eb2', UpdatedAt=GETDATE()
+                SET role_id='4100b34b-15e5-4429-b132-8b3dba5a0eb2',
+                    UpdatedAt=GETDATE()
                 WHERE id='52266a6f-fcae-4365-9297-b9603f3df12b';
 
             -- select * FROM user_service_roles WHERE service_id = @serviceId
 
             -- Step 3) delete the roles we don't need anymore
             DELETE FROM user_service_roles
-                WHERE service_id = @serviceId 
+                WHERE service_id = @serviceId
                     AND role_id IN ('cc3430da-5856-44ac-8241-32cd116ed0e2',
                                     '0337dc13-55e5-4769-8c27-5447c3479358',
                                     '2a957dee-f416-433e-86b5-6695ac858136',
@@ -72,8 +73,20 @@ BEGIN TRY
                                     '962ef9b4-63bd-4f14-87d8-ec8101823acc');
 
             -- Step 4) modify the roles we want to keep (Site Administrator, T Level Reviewer and Providers Editor)
-            --TODO
+            UPDATE role
+                SET code='t_levels_site_administrator',
+                    UpdatedAt=GETDATE()
+                WHERE id='4100b34b-15e5-4429-b132-8b3dba5a0eb2'
 
+            UPDATE role
+                SET code='t_levels_reviewer',
+                    UpdatedAt=GETDATE()
+                WHERE id='d2132f32-597d-4efb-b9a1-6df866bdee0a';
+
+                UPDATE role
+                    SET code='t_levels_providers_editor',
+                        UpdatedAt=GETDATE()
+                    WHERE id='1e595172-c8d2-40b4-a221-d45643d32772';
             -- Step 5) add new policy and link with the three roles we kept
             --TODO
 
@@ -85,13 +98,13 @@ END TRY
 
 BEGIN CATCH
 
-     SELECT   
-        ERROR_NUMBER() AS ErrorNumber  
-        ,ERROR_SEVERITY() AS ErrorSeverity  
-        ,ERROR_STATE() AS ErrorState  
-        ,ERROR_PROCEDURE() AS ErrorProcedure  
-        ,ERROR_LINE() AS ErrorLine  
-        ,ERROR_MESSAGE() AS ErrorMessage;  
+     SELECT
+        ERROR_NUMBER() AS ErrorNumber
+        ,ERROR_SEVERITY() AS ErrorSeverity
+        ,ERROR_STATE() AS ErrorState
+        ,ERROR_PROCEDURE() AS ErrorProcedure
+        ,ERROR_LINE() AS ErrorLine
+        ,ERROR_MESSAGE() AS ErrorMessage;
 
      --Rollback if there was an error
      IF @@TRANCOUNT > 0
