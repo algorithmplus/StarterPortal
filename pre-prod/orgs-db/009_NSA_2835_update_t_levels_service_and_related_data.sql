@@ -7,9 +7,9 @@ BEGIN TRY
     DECLARE @policyId UNIQUEIDENTIFIER;
     DECLARE @policyIdList AS TABLE (Value UNIQUEIDENTIFIER);
 
-    DECLARE @ncfeOrgId UNIQUEIDENTIFIER = 'aaa';
-    DECLARE @pearsonOrgId UNIQUEIDENTIFIER = 'bbb';
-    DECLARE @cityGuildsOrgId UNIQUEIDENTIFIER = 'ccc';
+    DECLARE @ncfeOrgId UNIQUEIDENTIFIER = '848d7fb9-adbd-47ec-a975-3ff9314323ea';
+    DECLARE @pearsonOrgId UNIQUEIDENTIFIER = '256b4cdd-b478-45ca-8303-b674412ad11e';
+    DECLARE @cityGuildsOrgId UNIQUEIDENTIFIER = 'b42eadb8-288f-4a45-b67d-39a9b5d95c7e';
     
     --get service Id based on name, if more than one found it will fail and go to catch block
     SET @serviceId = (SELECT id FROM Service WHERE name = @serviceNameToCleanup);
