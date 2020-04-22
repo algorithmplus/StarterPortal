@@ -29,5 +29,5 @@ BEGIN CATCH
         , ERROR_MESSAGE() AS ErrorMessage;  
      --Rollback if there was an error
      IF @@TRANCOUNT > 0
-          ROLLBACK TRAN TLEVELSRESULTSCERTONBOARD;
+          ROLLBACK TRAN UPDATEURLS;
 END CATCH;
