@@ -15,13 +15,8 @@ BEGIN TRY
         BEGIN
 
             -- step 1) delete all policies (policy, policy conditions, and policyRoles) linked to the roles with that applicationId
-
-            --SELECT * FROM Policy WHERE ApplicationId = @serviceId;
-
+            
             INSERT INTO @policyIdList (Value) SELECT id FROM Policy WHERE ApplicationId = @serviceId;
-
-            --SELECT * FROM PolicyRole WHERE PolicyId IN (SELECT id FROM Policy WHERE ApplicationId = @serviceId)
-            --SELECT * FROM @policyIdList
 
             IF (SELECT COUNT (*) FROM @policyIdList ) > 0
                 BEGIN
@@ -51,16 +46,11 @@ BEGIN TRY
             DELETE FROM Policy
                 WHERE ApplicationId = @serviceId;
 
-            -- SELECT * FROM Policy WHERE ApplicationId = @serviceId;
-            -- SELECT * FROM PolicyRole WHERE PolicyId IN (SELECT id FROM Policy WHERE ApplicationId = @serviceId)
-
             -- Step 2) modify user_service_roles so that we only have them pointing to one of the (duplicated) administrator roles
             UPDATE user_service_roles
                 SET role_id='4100b34b-15e5-4429-b132-8b3dba5a0eb2',
                     UpdatedAt=GETDATE()
                 WHERE id='52266a6f-fcae-4365-9297-b9603f3df12b';
-
-            -- select * FROM user_service_roles WHERE service_id = @serviceId
 
             -- Step 3) delete the roles we don't need anymore
             DELETE FROM user_service_roles
@@ -72,6 +62,16 @@ BEGIN TRY
                                     '5af605ca-2d99-4a0b-b779-714ef9408d26',
                                     '10d11be6-387a-4f03-bf9e-d7ccff9a509c',
                                     '962ef9b4-63bd-4f14-87d8-ec8101823acc');
+
+            DELETE FROM Role
+                WHERE ApplicationId = @serviceId
+                    AND id IN ('cc3430da-5856-44ac-8241-32cd116ed0e2',
+                                '0337dc13-55e5-4769-8c27-5447c3479358',
+                                '2a957dee-f416-433e-86b5-6695ac858136',
+                                'eb762845-5273-4649-a05a-6eb233766372',
+                                '5af605ca-2d99-4a0b-b779-714ef9408d26',
+                                '10d11be6-387a-4f03-bf9e-d7ccff9a509c',
+                                '962ef9b4-63bd-4f14-87d8-ec8101823acc');
 
             -- Step 4) modify the roles we want to keep (Site Administrator, T Level Reviewer and Providers Editor)
             UPDATE role
