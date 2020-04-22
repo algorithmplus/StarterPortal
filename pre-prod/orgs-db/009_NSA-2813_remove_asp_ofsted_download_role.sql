@@ -3,18 +3,19 @@ BEGIN TRY
 
 IF (SELECT COUNT(*)
 FROM ROLE
-WHERE name = 'ASP Ofsted Download')  = 1
+WHERE name = 'ASP Ofsted Download' AND ApplicationId = 'df2ae7f3-917a-4489-8a62-8b9b536a71cc')  = 1
 BEGIN
     DELETE FROM
             Role
         WHERE
-            name = 'ASP Ofsted Download';
+            name = 'ASP Ofsted Download' AND
+        ApplicationId = 'df2ae7f3-917a-4489-8a62-8b9b536a71cc';
 END
 ELSE
 BEGIN
     IF (SELECT COUNT(*)
     FROM ROLE
-    WHERE name = 'ASP Ofsted Download') > 1
+    WHERE name = 'ASP Ofsted Download' AND ApplicationId = 'df2ae7f3-917a-4489-8a62-8b9b536a71cc') > 1
         PRINT 'The role `ASP Ofsted Download has duplicates';
     ELSE 
         PRINT 'The role `ASP Ofsted Download` does not exist'
