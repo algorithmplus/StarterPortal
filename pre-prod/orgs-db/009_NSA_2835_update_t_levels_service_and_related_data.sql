@@ -6,8 +6,11 @@ BEGIN TRY
     DECLARE @serviceId UNIQUEIDENTIFIER;
     DECLARE @policyId UNIQUEIDENTIFIER;
     DECLARE @policyIdList AS TABLE (Value UNIQUEIDENTIFIER);
-    DECLARE @ncfeOrgId UNIQUEIDENTIFIER = '848d7fb9-adbd-47ec-a975-3ff9314323ea';
 
+    DECLARE @ncfeOrgId UNIQUEIDENTIFIER = 'aaa';
+    DECLARE @pearsonOrgId UNIQUEIDENTIFIER = 'bbb';
+    DECLARE @cityGuildsOrgId UNIQUEIDENTIFIER = 'ccc';
+    
     --get service Id based on name, if more than one found it will fail and go to catch block
     SET @serviceId = (SELECT id FROM Service WHERE name = @serviceNameToCleanup);
 
@@ -99,7 +102,9 @@ BEGIN TRY
 
             --Create Policy Conditions
             INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-            VALUES (NEWID(), @policyId, 'organisation.id', 'is', @ncfeOrgId, GETDATE(), GETDATE());
+            VALUES (NEWID(), @policyId, 'organisation.id', 'is', @ncfeOrgId, GETDATE(), GETDATE()),
+                (NEWID(), @policyId, 'organisation.id', 'is', @pearsonOrgId, GETDATE(), GETDATE()),
+                (NEWID(), @policyId, 'organisation.id', 'is', @cityGuildsOrgId, GETDATE(), GETDATE());
 
             --Link Policy with roles kept
             INSERT INTO PolicyRole (PolicyId, RoleId, CreatedAt, UpdatedAt)
