@@ -19,12 +19,12 @@ BEGIN TRY
             UPDATE
                 user_service_roles
             SET organisation_id = @orgId
-                WHERE service_id = @serviceId
-                
+                WHERE service_id = @serviceId;
+
             UPDATE
                 user_services
             SET organisation_id = @orgId
-                WHERE service_id = @serviceId
+                WHERE service_id = @serviceId;
         END
 
     ROLLBACK TRAN TLEVELSORGUPDATE;
