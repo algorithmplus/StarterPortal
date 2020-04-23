@@ -15,7 +15,7 @@ BEGIN TRY
 
     IF (@serviceId IS NOT NULL)
         BEGIN
-            -- Step 2) delete the roles we don't need anymore
+            -- Step 2) update the users to point to the correct organisation
             UPDATE
                 user_service_roles
             SET organisation_id = @orgId
