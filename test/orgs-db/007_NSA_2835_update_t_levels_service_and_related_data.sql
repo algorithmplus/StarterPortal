@@ -53,7 +53,6 @@ BEGIN TRY
                 WHERE id='52266a6f-fcae-4365-9297-b9603f3df12b';
 
             -- Step 3) delete the roles we don't need anymore
-
             DELETE FROM invitation_service_roles
                 where service_id = @serviceId;
 
@@ -81,17 +80,17 @@ BEGIN TRY
             UPDATE role
                 SET code='t_levels_site_administrator',
                     UpdatedAt=GETDATE()
-                WHERE id='4100b34b-15e5-4429-b132-8b3dba5a0eb2'
+                WHERE id='4100b34b-15e5-4429-b132-8b3dba5a0eb2';
 
             UPDATE role
                 SET code='t_levels_reviewer',
                     UpdatedAt=GETDATE()
                 WHERE id='d2132f32-597d-4efb-b9a1-6df866bdee0a';
 
-                UPDATE role
-                    SET code='t_levels_providers_editor',
-                        UpdatedAt=GETDATE()
-                    WHERE id='1e595172-c8d2-40b4-a221-d45643d32772';
+            UPDATE role
+                SET code='t_levels_providers_editor',
+                    UpdatedAt=GETDATE()
+                WHERE id='1e595172-c8d2-40b4-a221-d45643d32772';
 
             -- Step 5) add new policy and link with the three roles we kept
             --Create Policy

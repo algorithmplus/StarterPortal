@@ -18,13 +18,7 @@ BEGIN TRY
         BEGIN
 
             -- step 1) delete all policies (policy, policy conditions, and policyRoles) linked to the roles with that applicationId
-
-            --SELECT * FROM Policy WHERE ApplicationId = @serviceId;
-
             INSERT INTO @policyIdList (Value) SELECT id FROM Policy WHERE ApplicationId = @serviceId;
-
-            --SELECT * FROM PolicyRole WHERE PolicyId IN (SELECT id FROM Policy WHERE ApplicationId = @serviceId)
-            --SELECT * FROM @policyIdList
 
             IF (SELECT COUNT (*) FROM @policyIdList ) > 0
                 BEGIN
@@ -54,47 +48,39 @@ BEGIN TRY
             DELETE FROM Policy
                 WHERE ApplicationId = @serviceId;
 
-            -- SELECT * FROM Policy WHERE ApplicationId = @serviceId;
-            -- SELECT * FROM PolicyRole WHERE PolicyId IN (SELECT id FROM Policy WHERE ApplicationId = @serviceId)
-
-            -- Step 2) modify user_service_roles so that we only have them pointing to one of the (duplicated) administrator roles
-            UPDATE user_service_roles
-                SET role_id='4100b34b-15e5-4429-b132-8b3dba5a0eb2',
-                    UpdatedAt=GETDATE()
-                WHERE id='52266a6f-fcae-4365-9297-b9603f3df12b';
-
-            -- select * FROM user_service_roles WHERE service_id = @serviceId
-
-            -- Step 3) delete the roles we don't need anymore
+            -- Step 2) delete the roles we don't need anymore
             DELETE FROM user_service_roles
                 WHERE service_id = @serviceId
-                    AND role_id IN ('cc3430da-5856-44ac-8241-32cd116ed0e2',
-                                    '0337dc13-55e5-4769-8c27-5447c3479358',
-                                    '2a957dee-f416-433e-86b5-6695ac858136',
-                                    'eb762845-5273-4649-a05a-6eb233766372',
-                                    '5af605ca-2d99-4a0b-b779-714ef9408d26',
-                                    '10d11be6-387a-4f03-bf9e-d7ccff9a509c',
-                                    '962ef9b4-63bd-4f14-87d8-ec8101823acc');
+                    AND role_id IN ('5234a62e-4965-4b53-a054-08753aa47a98',
+                                    '99795df7-894c-4167-88cd-37a4bdeaa476',
+                                    'e0b7305b-8849-485f-9b6c-be3a13b49e23',
+                                    '853159da-2ccf-4762-9c30-c573582b1b5e');                             
+                                    
+            DELETE FROM Role
+                WHERE ApplicationId = @serviceId
+                    AND id IN ('5234a62e-4965-4b53-a054-08753aa47a98',
+                                '99795df7-894c-4167-88cd-37a4bdeaa476',
+                                'e0b7305b-8849-485f-9b6c-be3a13b49e23',
+                                '853159da-2ccf-4762-9c30-c573582b1b5e');
 
-            -- Step 4) modify the roles we want to keep (Site Administrator, T Level Reviewer and Providers Editor)
+            -- Step 3) modify the roles we want to keep (Site Administrator, T Level Reviewer and Providers Editor)
             UPDATE role
                 SET code='t_levels_site_administrator',
                     UpdatedAt=GETDATE()
-                WHERE id='4100b34b-15e5-4429-b132-8b3dba5a0eb2'
+                WHERE id='4100b34b-15e5-4429-b132-8b3dba5a0eb2';
 
             UPDATE role
                 SET code='t_levels_reviewer',
                     UpdatedAt=GETDATE()
                 WHERE id='d2132f32-597d-4efb-b9a1-6df866bdee0a';
 
-                UPDATE role
-                    SET code='t_levels_providers_editor',
-                        UpdatedAt=GETDATE()
-                    WHERE id='1e595172-c8d2-40b4-a221-d45643d32772';
+            UPDATE role
+                SET name='Providers Editor',
+                    code='t_levels_providers_editor',
+                    UpdatedAt=GETDATE()
+                WHERE id='1e595172-c8d2-40b4-a221-d45643d32772';
 
-            -- select * from role where applicationId = @serviceId
-
-            -- Step 5) add new policy and link with the three roles we kept
+            -- Step 4) add new policy and link with the three roles we kept
             --Create Policy
             SET @policyId = NEWID();
             INSERT INTO Policy (Id, Name, ApplicationId, Status, CreatedAt, UpdatedAt)
@@ -112,9 +98,6 @@ BEGIN TRY
                 (@policyId, '4100b34b-15e5-4429-b132-8b3dba5a0eb2', GETDATE(), GETDATE()),
                 (@policyId, '1e595172-c8d2-40b4-a221-d45643d32772', GETDATE(), GETDATE()),
                 (@policyId, 'd2132f32-597d-4efb-b9a1-6df866bdee0a', GETDATE(), GETDATE());
-
-            -- select * from Policy WHERE applicationId = @serviceId
-            -- select * from PolicyRole WHERE policyId = @policyId
 
         END
 
