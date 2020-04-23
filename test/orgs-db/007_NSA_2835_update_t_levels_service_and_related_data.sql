@@ -53,6 +53,10 @@ BEGIN TRY
                 WHERE id='52266a6f-fcae-4365-9297-b9603f3df12b';
 
             -- Step 3) delete the roles we don't need anymore
+
+            DELETE FROM invitation_service_roles
+                where service_id = @serviceId;
+
             DELETE FROM user_service_roles
                 WHERE service_id = @serviceId
                     AND role_id IN ('cc3430da-5856-44ac-8241-32cd116ed0e2',
@@ -62,7 +66,7 @@ BEGIN TRY
                                     '5af605ca-2d99-4a0b-b779-714ef9408d26',
                                     '10d11be6-387a-4f03-bf9e-d7ccff9a509c',
                                     '962ef9b4-63bd-4f14-87d8-ec8101823acc');
-
+            
             DELETE FROM Role
                 WHERE ApplicationId = @serviceId
                     AND id IN ('cc3430da-5856-44ac-8241-32cd116ed0e2',
@@ -89,8 +93,6 @@ BEGIN TRY
                         UpdatedAt=GETDATE()
                     WHERE id='1e595172-c8d2-40b4-a221-d45643d32772';
 
-            -- select * from role where applicationId = @serviceId
-
             -- Step 5) add new policy and link with the three roles we kept
             --Create Policy
             SET @policyId = NEWID();
@@ -107,9 +109,6 @@ BEGIN TRY
                 (@policyId, '4100b34b-15e5-4429-b132-8b3dba5a0eb2', GETDATE(), GETDATE()),
                 (@policyId, '1e595172-c8d2-40b4-a221-d45643d32772', GETDATE(), GETDATE()),
                 (@policyId, 'd2132f32-597d-4efb-b9a1-6df866bdee0a', GETDATE(), GETDATE());
-
-            -- select * from Policy WHERE applicationId = @serviceId
-            -- select * from PolicyRole WHERE policyId = @policyId
 
         END
 
