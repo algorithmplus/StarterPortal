@@ -6,14 +6,14 @@ INSERT INTO
     servicePostLogoutRedirectUris
     (serviceId, redirectUrl)
 VALUES
-    ('dd4122b1-263a-4312-8f68-a26c208f72bf', 'https://test-services.signin.education.gov.uk/signout?redirected=true');
+    ('dd4122b1-263a-4312-8f68-a26c208f72bf', 'https://pp-services.signin.education.gov.uk/signout?redirected=true');
 
 -- service to profile
 INSERT INTO
     servicePostLogoutRedirectUris
     (serviceId, redirectUrl)
 VALUES
-    ('1172d468-dfa7-4639-9c6f-60911bf10576', 'https://test-profile.signin.education.gov.uk/signout');
+    ('1172d468-dfa7-4639-9c6f-60911bf10576', 'https://pp-profile.signin.education.gov.uk/signout');
     
 --Commit transaction if all went fine
 ROLLBACK TRAN UPDATEURLS;
