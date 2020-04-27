@@ -11,7 +11,7 @@ BEGIN TRY
 
      INSERT INTO servicePostLogoutRedirectUris (serviceId, redirectUrl)
      VALUES (@profileServiceId, 'https://manage-tlevel-results.tlevels.gov.uk/'),
-     VALUES (@serviceServiceId, 'https://manage-tlevel-results.tlevels.gov.uk/');
+            (@serviceServiceId, 'https://manage-tlevel-results.tlevels.gov.uk/');
 
      --Commit transaction if all went fine
      ROLLBACK TRAN TLEVELSRESULTSCERTURL;
