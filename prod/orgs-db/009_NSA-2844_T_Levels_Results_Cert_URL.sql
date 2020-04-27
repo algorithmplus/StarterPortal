@@ -2,14 +2,16 @@ BEGIN TRAN TLEVELSRESULTSCERTURL
 
 BEGIN TRY
 
-     DECLARE @profileServiceId UNIQUEIDENTIFIER
+     DECLARE @profileServiceId UNIQUEIDENTIFIER;
+     DECLARE @profileServiceId UNIQUEIDENTIFIER;
 
      SET @profileServiceId = '0b030112-b8b1-4a70-a47a-316af0c22e71';
-
+     SET @serviceServiceId = '57b211c9-2335-46eb-81da-39484896ff01';
      -- Insert T Levels post logout redirect URL into DFE Signin Profile Service
 
      INSERT INTO servicePostLogoutRedirectUris (serviceId, redirectUrl)
-     VALUES (@profileServiceId, 'https://services.signin.education.gov.uk/signout?redirected=true&redirect_uri=https://manage-tlevel-results.tlevels.gov.uk/');
+     VALUES (@profileServiceId, 'https://manage-tlevel-results.tlevels.gov.uk/'),
+     VALUES (@serviceServiceId, 'https://manage-tlevel-results.tlevels.gov.uk/');
 
      --Commit transaction if all went fine
      ROLLBACK TRAN TLEVELSRESULTSCERTURL;
