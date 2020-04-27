@@ -9,10 +9,6 @@ BEGIN TRY
      DECLARE @manageId UNIQUEIDENTIFIER;
      DECLARE @numericId BIGINT;
 
-     DECLARE @ncfeOrgId UNIQUEIDENTIFIER = '72ed2dcb-7fa3-456c-9618-21f52c314d5';
-     DECLARE @pearsonOrgId UNIQUEIDENTIFIER = 'be17ddce-c8fd-45ce-b4b4-4a98faebc445';
-     DECLARE @cityGuildsOrgId UNIQUEIDENTIFIER = '180b2f48-129d-4400-a2e4-1aa820d8ba08';
-
      --Create service
      SET @serviceId = NEWID();
      INSERT INTO service (id, name, description, clientId, clientSecret, apiSecret, tokenEndpointAuthMethod, serviceHome, postResetUrl, isExternalService, isMigrated, parentId, isChildService)
@@ -33,9 +29,9 @@ BEGIN TRY
 
      --Create Policy Conditions
      INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-     VALUES (NEWID(), @policyId, 'organisation.id', 'is', @ncfeOrgId, GETDATE(), GETDATE()),
-          (NEWID(), @policyId, 'organisation.id', 'is', @pearsonOrgId, GETDATE(), GETDATE()),
-          (NEWID(), @policyId, 'organisation.id', 'is', @cityGuildsOrgId, GETDATE(), GETDATE());
+     VALUES (NEWID(), @policyId, 'organisation.id', 'is', '72ed2dcb-7fa3-456c-9618-21f52c314d5', GETDATE(), GETDATE()),
+          (NEWID(), @policyId, 'organisation.id', 'is', 'be17ddce-c8fd-45ce-b4b4-4a98faebc445', GETDATE(), GETDATE()),
+          (NEWID(), @policyId, 'organisation.id', 'is', '180b2f48-129d-4400-a2e4-1aa820d8ba08', GETDATE(), GETDATE());
 
      --Create Role 'Site Administrator' and link to policy
      SET @roleId = NEWID();
