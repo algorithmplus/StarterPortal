@@ -3,7 +3,7 @@ BEGIN TRAN TLEVELSRESULTSCERTURL
 BEGIN TRY
 
      DECLARE @profileServiceId UNIQUEIDENTIFIER;
-     DECLARE @profileServiceId UNIQUEIDENTIFIER;
+     DECLARE @serviceServiceId UNIQUEIDENTIFIER;
 
      SET @profileServiceId = '0b030112-b8b1-4a70-a47a-316af0c22e71';
      SET @serviceServiceId = '57b211c9-2335-46eb-81da-39484896ff01';
