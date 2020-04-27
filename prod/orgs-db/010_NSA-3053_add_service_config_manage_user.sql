@@ -6,6 +6,7 @@ BEGIN TRY
   DECLARE @orgId UNIQUEIDENTIFIER = '7d48d8ff-a322-4f22-8a79-c0425ac69749';
   DECLARE @serviceId UNIQUEIDENTIFIER = 'b1f190aa-729a-45fc-a695-4ea209dc79d4';
   DECLARE @roleName VARCHAR(500) = 'T Level Results and Certification - Service Configuration';
+  DECLARE @roleId UNIQUEIDENTIFIER;
 
       INSERT INTO user_services (id, status, user_id, organisation_id, service_id, createdAt, updatedAt)
       VALUES (NEWID(), 1, @userId,@orgId, @serviceId, GETDATE(), GETDATE());
