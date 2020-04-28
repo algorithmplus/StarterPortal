@@ -8,9 +8,20 @@ BEGIN TRY
     SET @serviceId = (SELECT id FROM Service WHERE name = 'Teacher Services - Employer Access - Schools');
 
     -- Cleaning in prod before setting new policies
-    DELETE from PolicyCondition where PolicyId in (select id from [Policy] where ApplicationId=@serviceId and name='Evolve - Employer Access - Schools');
-    DELETE from PolicyRole where PolicyId in (select id from [Policy] where ApplicationId=@serviceId and name='Evolve - Employer Access - Schools');
-    DELETE from [Policy] where ApplicationId=@serviceId and name='Evolve - Employer Access - Schools';
+    IF(select count(*) from PolicyCondition where PolicyId in (select id from [Policy] where ApplicationId=@serviceId and name='Evolve - Employer Access - Schools')) = 3
+    BEGIN
+        DELETE from PolicyCondition where PolicyId in (select id from [Policy] where ApplicationId=@serviceId and name='Evolve - Employer Access - Schools');
+    END;
+
+    IF(select count(*) from PolicyRole where PolicyId in (select id from [Policy] where ApplicationId=@serviceId and name='Evolve - Employer Access - Schools')) = 1
+    BEGIN
+        DELETE from PolicyRole where PolicyId in (select id from [Policy] where ApplicationId=@serviceId and name='Evolve - Employer Access - Schools');
+    END;
+
+    IF(select count(*) from [Policy] where ApplicationId=@serviceId and name='Evolve - Employer Access - Schools') = 1
+    BEGIN
+        DELETE from [Policy] where ApplicationId=@serviceId and name='Evolve - Employer Access - Schools';
+    END;
 
     IF(SELECT COUNT(*) FROM ROLE WHERE name = 'Teacher Services – Employers') = 0
     BEGIN
@@ -40,104 +51,72 @@ BEGIN TRY
 
     DELETE from PolicyCondition where PolicyId=@policyidOrg;
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '01', GETDATE(), GETDATE());
+     INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
+        VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '01', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '02', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '02', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '03', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '03', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '05', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '05', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '06', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '06', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '07', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '07', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '08', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '08', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '10', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '10', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '11', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '11', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '12', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '12', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '14', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '14', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '15', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '15', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '18', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '18', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '24', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '24', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '25', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '25', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '26', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '26', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '28', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '28', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '29', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '29', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '30', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '30', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '32', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '32', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '33', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '33', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '34', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '34', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '35', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '35', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '36', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '36', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '38', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '38', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '39', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '39', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '40', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '40', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '41', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '41', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '42', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '42', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '43', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '43', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '44', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '44', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '45', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '45', GETDATE(), GETDATE()),
 
-    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-    VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '46', GETDATE(), GETDATE());
+         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '46', GETDATE(), GETDATE()),
 
     -- adding policy to role
     INSERT INTO PolicyRole (PolicyId, RoleId, CreatedAt, UpdatedAt)
