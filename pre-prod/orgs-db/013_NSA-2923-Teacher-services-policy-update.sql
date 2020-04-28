@@ -8,21 +8,39 @@ BEGIN TRY
     SET @serviceId = (SELECT id FROM Service WHERE name = 'Teacher Services - Employer Access - Schools');
 
     -- Cleaning before setting new policies
-    IF(select count(*) from PolicyCondition where PolicyId in (select id from [Policy] where ApplicationId='aa4bd63e-61b8-421f-90df-8ef2cd15aa38')) = 16
+    IF(select count(*) from PolicyCondition where PolicyId in (select id from [Policy] where ApplicationId=@serviceId)) = 16
     BEGIN
         DELETE from PolicyCondition where PolicyId in (select id from [Policy] where ApplicationId=@serviceId);
+    END;
+    ELSE
+    BEGIN
+        PRINT 'PolicyCondition not deleted for the service  ' + @serviceId;
     END;
     IF(select count(*) from PolicyRole where PolicyId in (select id from [Policy] where ApplicationId=@serviceId)) = 6
     BEGIN
         DELETE from PolicyRole where PolicyId in (select id from [Policy] where ApplicationId=@serviceId);
     END;
+    ELSE
+    BEGIN
+            PRINT 'PolicyRole not deleted for the service  ' + @serviceId;
+    END;
+
     IF(select count(*) from [ROLE] where ApplicationId=@serviceId) = 2
         BEGIN
     DELETE from [ROLE] where ApplicationId=@serviceId;
     END;
+    ELSE
+    BEGIN
+        PRINT 'ROLE not deleted for the service  ' + @serviceId;
+    END;
+
     IF(select count(*) from [Policy] where ApplicationId=@serviceId) = 6
     BEGIN
         DELETE from [Policy] where ApplicationId=@serviceId;
+    END;
+    ELSE
+    BEGIN
+        PRINT 'Policy not deleted for the service  ' + @serviceId;
     END;
 
     IF(SELECT COUNT(*) FROM ROLE WHERE name = 'Teacher Services – Employers') = 0

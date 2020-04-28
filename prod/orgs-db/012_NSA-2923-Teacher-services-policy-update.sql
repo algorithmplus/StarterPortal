@@ -12,15 +12,27 @@ BEGIN TRY
     BEGIN
         DELETE from PolicyCondition where PolicyId in (select id from [Policy] where ApplicationId=@serviceId and name='Evolve - Employer Access - Schools');
     END;
+    ELSE
+    BEGIN
+        PRINT 'PolicyCondition not deleted for the service  ' + @serviceId;
+    END;
 
     IF(select count(*) from PolicyRole where PolicyId in (select id from [Policy] where ApplicationId=@serviceId and name='Evolve - Employer Access - Schools')) = 1
     BEGIN
         DELETE from PolicyRole where PolicyId in (select id from [Policy] where ApplicationId=@serviceId and name='Evolve - Employer Access - Schools');
     END;
+    ELSE
+    BEGIN
+        PRINT 'PolicyRole not deleted for the service  ' + @serviceId;
+    END;
 
     IF(select count(*) from [Policy] where ApplicationId=@serviceId and name='Evolve - Employer Access - Schools') = 1
     BEGIN
         DELETE from [Policy] where ApplicationId=@serviceId and name='Evolve - Employer Access - Schools';
+    END;
+    ELSE
+    BEGIN
+        PRINT 'Policy not deleted for the service  ' + @serviceId;
     END;
 
     IF(SELECT COUNT(*) FROM ROLE WHERE name = 'Teacher Services – Employers') = 0
