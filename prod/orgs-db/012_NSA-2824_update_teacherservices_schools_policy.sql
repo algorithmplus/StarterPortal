@@ -7,22 +7,19 @@ BEGIN TRY
     DECLARE @policyName VARCHAR(500) = 'Evolve - Employer Access - Schools';
     DECLARE @policyId UNIQUEIDENTIFIER;
 
-    IF (@serviceName IS NOT NULL)
-
-      BEGIN
-
-      -- Get Service Id based on name, if more than one found it will fail and go to catch block
+    -- Get Service Id based on name, if more than one found it will fail and go to catch block
       SET @serviceId = (SELECT id FROM Service WHERE name = @serviceName AND clientId = 'EvolveEmpAccessSchool');
-
-      -- Get Policy Id based on Policy name, if more than one found it will fail and go to catch block
-      SET @policyId = (SELECT id FROM Policy WHERE ApplicationId = @serviceId AND Name = @policyName);
-
-      --  Create Policy Conditions
-          INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-          VALUES (NEWID(), @policyId, 'organisation.type.id', '<>', '29', GETDATE(), GETDATE());
-
-      END;
-
+      IF (@serviceId IS NOT NULL)
+          BEGIN
+          -- Get Policy Id based on Policy name, if more than one found it will fail and go to catch block
+          SET @policyId = (SELECT id FROM Policy WHERE ApplicationId = @serviceId AND Name = @policyName);
+          IF (@policyId IS NOT NULL)
+              BEGIN
+                  -- Create Policy Conditions
+                  INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
+                  VALUES (NEWID(), @policyId, 'organisation.type.id', '<>', '29', GETDATE(), GETDATE());
+              END;
+          END;
     -- COMMIT TRAN IF NO ERRORS
     ROLLBACK TRAN TEACHERSERVICESPOLICYUPDATE;
 
