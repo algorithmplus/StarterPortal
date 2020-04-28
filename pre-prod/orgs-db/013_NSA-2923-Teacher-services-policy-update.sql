@@ -51,7 +51,10 @@ BEGIN TRY
         SET @policyidOrg = (SELECT id FROM [Policy] WHERE name = 'TA Administration' and ApplicationId=@serviceId);
     END;
 
-    DELETE from PolicyCondition where PolicyId=@policyidOrg;
+    IF(SELECT COUNT(*) from PolicyCondition where PolicyId=@policyidOrg) = 1
+    BEGIN
+        DELETE from PolicyCondition where PolicyId=@policyidOrg;
+    END;
 
     INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
     VALUES (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '01', GETDATE(), GETDATE()),
