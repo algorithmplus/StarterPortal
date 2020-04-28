@@ -6,6 +6,7 @@ BEGIN TRY
     DECLARE @serviceId UNIQUEIDENTIFIER;
     DECLARE @policyId UNIQUEIDENTIFIER;
     DECLARE @roleId UNIQUEIDENTIFIER;
+    DECLARE @numericId BIGINT;
 
     -- Get service Id based on name, if more than one found it will fail and go to catch block
     SET @serviceId = (SELECT id FROM Service WHERE name = @serviceName AND clientId = 'EvolveEmpAccessSchool');
