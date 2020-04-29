@@ -14,7 +14,7 @@ BEGIN TRY
     END;
     ELSE
     BEGIN
-        PRINT 'PolicyCondition not deleted for the service  ' + @serviceId;
+        PRINT 'PolicyCondition not deleted for the service  '+convert(varchar(38), @serviceId);
     END;
     IF(select count(*) from PolicyRole where PolicyId in (select id from [Policy] where ApplicationId=@serviceId)) = 6
     BEGIN
@@ -22,7 +22,7 @@ BEGIN TRY
     END;
     ELSE
     BEGIN
-            PRINT 'PolicyRole not deleted for the service  ' + @serviceId;
+            PRINT 'PolicyRole not deleted for the service  '+convert(varchar(38), @serviceId);
     END;
 
     IF(select count(*) from [ROLE] where ApplicationId=@serviceId) = 2
@@ -31,7 +31,7 @@ BEGIN TRY
     END;
     ELSE
     BEGIN
-        PRINT 'ROLE not deleted for the service  ' + @serviceId;
+        PRINT 'ROLE not deleted for the service  '+convert(varchar(38), @serviceId);
     END;
 
     IF(select count(*) from [Policy] where ApplicationId=@serviceId) = 6
@@ -40,7 +40,7 @@ BEGIN TRY
     END;
     ELSE
     BEGIN
-        PRINT 'Policy not deleted for the service  ' + @serviceId;
+        PRINT 'Policy not deleted for the service  '+convert(varchar(38), @serviceId);
     END;
 
     IF(SELECT COUNT(*) FROM ROLE WHERE name = 'Teacher Services – Employers') = 0
