@@ -139,7 +139,7 @@ BEGIN TRY
 
      (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '45', GETDATE(), GETDATE()),
 
-     (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '46', GETDATE(), GETDATE()),
+     (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '46', GETDATE(), GETDATE());
 
     -- adding policy to role
     INSERT INTO PolicyRole (PolicyId, RoleId, CreatedAt, UpdatedAt)
