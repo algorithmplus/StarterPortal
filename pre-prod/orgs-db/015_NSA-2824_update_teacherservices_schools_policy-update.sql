@@ -6,7 +6,7 @@ BEGIN TRY
     DECLARE @serviceId UNIQUEIDENTIFIER;
     DECLARE @policyName VARCHAR(500) = 'TA Administration'
     DECLARE @policyId UNIQUEIDENTIFIER;
-    DECLARE @PolicyCondition UNIQUEIDENTIFIER;
+    DECLARE @policyConditionId UNIQUEIDENTIFIER;
 
       -- Get Service Id based on name, if more than one found it will fail and go to catch block
       SET @serviceId = (SELECT id FROM Service WHERE name = @serviceName AND clientId = 'EvolveEmpAccessSchool');
@@ -21,7 +21,7 @@ BEGIN TRY
                       --  Update Policy Conditions
                       UPDATE PolicyCondition
                           SET Operator = '<>',
-                          UpdatedAt = GETDATE(),
+                          UpdatedAt = GETDATE()
                           WHERE id = @policyConditionId;
               END;
           END;
