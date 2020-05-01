@@ -28,25 +28,30 @@ BEGIN TRY
     --constant values
     DECLARE @orgCategory NVARCHAR(25) = '051';
 
-    --table where we store the orgs data to import
+    --table where we store the orgs data that we are going to import
     DECLARE @pimsOrgs AS TABLE (
         UKPRN NVARCHAR(25),
         name NVARCHAR(500)
         );
 
     --Get the data from temp table in the database (has to be previously loaded)
+    --We will load all UKPRNs that are not already present in the database
+    --using EXCEPT to compare only UKPRNs (as names might slightly differ)
     INSERT INTO @pimsOrgs (UKPRN, name) 
-        SELECT UKPRN, name FROM pimsOrgsTemp;
+        SELECT UKPRN, name from pimsOrgsTemp
+            WHERE UKPRN IN (
+                SELECT UKPRN   
+                FROM pimsOrgsTemp
+                EXCEPT  
+                SELECT UKPRN from organisation WHERE UKPRN IS NOT NULL);
 
-    --Get existing UKPRNs
-
-    --variables to store the org data to insert (one by one using cursor
+    --variables to store the org data to insert (one by one using cursor)
     DECLARE @orgUKPRN NVARCHAR(25);
     DECLARE @orgName NVARCHAR(500);
 
     --counters for inserted and processed rows
     DECLARE @insertedRows INT = 0;
-    DECLARE @processedRows INT = 0;
+    DECLARE @processedRows INT = (SELECT COUNT(*) FROM pimsOrgsTemp);
     
     --use cursor to loop through the list
     DECLARE db_cursor_orgs CURSOR FOR SELECT UKPRN, Name FROM @pimsOrgs;
@@ -56,8 +61,6 @@ BEGIN TRY
     WHILE @@FETCH_STATUS = 0
 
     BEGIN
-
-        SET @processedRows = @processedRows + 1;
 
         IF NOT EXISTS (SELECT * FROM organisation WHERE UKPRN = @orgUKPRN)
             BEGIN 
@@ -69,8 +72,6 @@ BEGIN TRY
 
                 PRINT @orgName + ' added to organisations. UKPRN: ' + @orgUKPRN;
             END
-
-        PRINT 'Organisations added so far: ' + CAST(@insertedRows AS nvarchar(30)) + '. After processing ' + CAST(@processedRows AS nvarchar(30)) + ' records.';
 
         -- get next org
         FETCH NEXT FROM db_cursor_orgs INTO @orgUKPRN, @orgName;
