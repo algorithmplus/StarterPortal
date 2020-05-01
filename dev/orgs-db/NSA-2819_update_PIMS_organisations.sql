@@ -1,20 +1,27 @@
 -- IMPORTANT!!!
--- Pre-requisites for this script:
-
+-- Pre-requisite for this script:
 -- Before running this script the CSV file with data has to be loaded in a temporary table in the database:
 --
--- 1) Create the table
+--STEPS TO FOLLOW:
+--
+-- 1) Prepare the CSV with data to import
+--      * Source CSV with up-to-date details
+--      * Leave only the relevant columns (UKPRN and Org Trading Name)
+--      * Remove column headers
+--      * Remove trailing spaces in Org Trading Name (replace regexp \s+\n with \n)
+--
+-- 2) Create the table
 -- CREATE TABLE pimsOrgsTemp (
 --     UKPRN NVARCHAR(25),
 --     name NVARCHAR(500)
 -- );
 --
--- 2) Import data from CSV (to be provided with the script)
+-- 3) Import data from CSV (to be provided with the script)
 -- bcp pimsOrgsTemp in C:\temp\PIMS.csv -S <server> -d s141d01-signin-organisations-db -U <username> -P <password> -q -c -t
 --
--- 3) Run this script
+-- 4) Run this script
 --
--- 4) Delete temp table if all successful
+-- 5) Delete temp table if all successful
 -- DROP TABLE pimsOrgsTemp;
 
 
