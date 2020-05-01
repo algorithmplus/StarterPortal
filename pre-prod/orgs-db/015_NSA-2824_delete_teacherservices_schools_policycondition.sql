@@ -19,7 +19,7 @@ BEGIN TRY
                   SET @policyConditionId = (SELECT id FROM PolicyCondition WHERE PolicyId = @policyId AND Field = 'organisation.type.id' AND VALUE = '29');
                   IF (@policyConditionId IS NOT NULL)
                       --  Update Policy Conditions
-                      DELETE PolicyCondition
+                      DELETE FROM PolicyCondition
                           WHERE id = @policyConditionId;
               END;
           END;
