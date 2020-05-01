@@ -66,7 +66,7 @@ BEGIN TRY
             BEGIN 
                 INSERT INTO organisation (id, name, category, ukprn, status, legacyId, createdAt, updatedAt)
                     VALUES 
-                    (NEWID(), @orgName, @orgCategory, @orgUKPRN, 1, (NEXT VALUE FOR numeric_id_sequence), GETDATE(), GETDATE());
+                    (NEWID(), @orgName, @orgCategory, @orgUKPRN, 1, (NEXT VALUE FOR org_legacy_id_sequence), GETDATE(), GETDATE());
                 --increment counter of inserted rows
                 SET @insertedRows = @insertedRows + @@ROWCOUNT;
 
