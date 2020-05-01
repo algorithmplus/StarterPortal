@@ -17,7 +17,7 @@ BEGIN TRY
 
               -- Create Policy Conditions
               INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-              VALUES (NEWID(), @policyId, 'organisation.type.id', '<>', '29', GETDATE(), GETDATE());
+              VALUES (NEWID(), @policyId, 'organisation.type.id', 'is_not', '29', GETDATE(), GETDATE());
           END;
     -- COMMIT TRAN IF NO ERRORS
     ROLLBACK TRAN TEACHERSERVICESPOLICYUPDATE;
