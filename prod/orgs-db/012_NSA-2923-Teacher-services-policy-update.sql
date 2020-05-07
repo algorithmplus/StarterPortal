@@ -96,8 +96,6 @@ BEGIN TRY
 
          (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '28', GETDATE(), GETDATE()),
 
-         (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '29', GETDATE(), GETDATE()),
-
          (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '30', GETDATE(), GETDATE()),
 
          (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '32', GETDATE(), GETDATE()),
