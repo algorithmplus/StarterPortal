@@ -9,7 +9,6 @@ DECLARE @orgId UNIQUEIDENTIFIER = '23f20e54-79ea-4146-8e39-18197576f023';
 DECLARE @serviceId UNIQUEIDENTIFIER = 'b1f190aa-729a-45fc-a695-4ea209dc79d4';
 DECLARE @roleId_1 UNIQUEIDENTIFIER = 'dec9aac6-6211-4742-a78d-270142af3f91';
 DECLARE @roleId_2 UNIQUEIDENTIFIER = 'f21f8cde-95bf-4000-963e-30bdc51ca822';
-DECLARE @roleId_3 UNIQUEIDENTIFIER = 'e59d53de-472a-47c4-9f4c-c0a0e6469591';
 
 
     INSERT INTO user_services (id, status, user_id, organisation_id, service_id, createdAt, updatedAt)
@@ -20,13 +19,10 @@ DECLARE @roleId_3 UNIQUEIDENTIFIER = 'e59d53de-472a-47c4-9f4c-c0a0e6469591';
     INSERT INTO user_service_roles (id, user_id, service_id, organisation_id, role_id, createdAt, updatedAt)
     VALUES (NEWID(), @userId_1, @serviceId, @orgId, @roleId_1, GETDATE(), GETDATE()),
            (NEWID(), @userId_1, @serviceId, @orgId, @roleId_2, GETDATE(), GETDATE()),
-           (NEWID(), @userId_1, @serviceId, @orgId, @roleId_3, GETDATE(), GETDATE()),
            (NEWID(), @userId_2, @serviceId, @orgId, @roleId_1, GETDATE(), GETDATE()),
            (NEWID(), @userId_2, @serviceId, @orgId, @roleId_2, GETDATE(), GETDATE()),
-           (NEWID(), @userId_2, @serviceId, @orgId, @roleId_3, GETDATE(), GETDATE()),
            (NEWID(), @userId_3, @serviceId, @orgId, @roleId_1, GETDATE(), GETDATE()),
-           (NEWID(), @userId_3, @serviceId, @orgId, @roleId_2, GETDATE(), GETDATE()),
-           (NEWID(), @userId_3, @serviceId, @orgId, @roleId_3, GETDATE(), GETDATE());
+           (NEWID(), @userId_3, @serviceId, @orgId, @roleId_2, GETDATE(), GETDATE());
 
     ROLLBACK TRAN MTCSERVICEMANAGEUSER
 
