@@ -19,8 +19,9 @@ BEGIN TRY
     DELETE from PolicyRole where PolicyId=@policy2Id AND RoleId =@role1Id
     DELETE from Policy where Id=@policy2Id AND ApplicationId =@collectionServiceId
 
-
-    DELETE from Role where Name='Coronavirus (COVID-19) Schools Fund' AND applicationId =@collectionServiceId
+    DELETE from invitation_service_roles where role_id=@role1Id
+    DELETE from user_service_roles where role_id=@role1Id
+    DELETE from Role where Id=@role1Id
     DELETE from serviceParams where paramName='COVID-19_SCHOOLS_FUND_FORM_ACCESS' AND serviceId =@collectionServiceId
 
     ROLLBACK TRAN COVID19_SCHOOLS_FUND_FORM_REVERT
