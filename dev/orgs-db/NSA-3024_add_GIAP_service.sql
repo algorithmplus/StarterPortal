@@ -31,6 +31,7 @@ BEGIN TRY
      --Create Policy Conditions - Organisations
      INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
      VALUES (NEWID(), @policyId_1, 'organisation.category.id', 'is', '001', GETDATE(), GETDATE()),
+            (NEWID(), @policyId_1, 'organisation.category.id', 'is', '002', GETDATE(), GETDATE()),
             (NEWID(), @policyId_1, 'organisation.category.id', 'is', '010', GETDATE(), GETDATE()),
             (NEWID(), @policyId_1, 'organisation.category.id', 'is', '013', GETDATE(), GETDATE()),
             (NEWID(), @policyId_1, 'organisation.status.id', 'is', '1', GETDATE(), GETDATE()),
