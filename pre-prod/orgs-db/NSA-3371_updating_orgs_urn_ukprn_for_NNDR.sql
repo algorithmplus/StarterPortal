@@ -7,18 +7,18 @@ BEGIN TRY
     DECLARE @orgName_2 VARCHAR(500) = 'BOLTON BROW PRIMARY ACADEMY';
     DECLARE @orgId_2 UNIQUEIDENTIFIER;
 
-    SET @orgId_1 = (SELECT id FROM organisation WHERE name = @orgName_1 and Category = '013');
+    SET @orgId_1 = (SELECT id FROM organisation WHERE name = @orgName_1 and Category = '013' and UID = '2804');
     IF (@orgId_1 IS NOT NULL)
         BEGIN
             UPDATE organisation
-                SET UKPRN = '10038674', URN = '138743', updatedAt = GETDATE()
+                SET UKPRN = '10059874', URN = NULL, updatedAt = GETDATE()
                 WHERE id = @orgId_1;
         END;
-    SET @orgId_2 = (SELECT id FROM organisation WHERE name = @orgName_2 and Category = '013');
+    SET @orgId_2 = (SELECT id FROM organisation WHERE name = @orgName_2 and Category = '013' and UID = '2371');
     IF (@orgId_2 IS NOT NULL)
         BEGIN
             UPDATE organisation
-                SET UKPRN = '10035110', URN = '137392', updatedAt = GETDATE()
+                SET UKPRN = '10059236', URN = NULL, updatedAt = GETDATE()
                 WHERE id = @orgId_2;
         END;
 
