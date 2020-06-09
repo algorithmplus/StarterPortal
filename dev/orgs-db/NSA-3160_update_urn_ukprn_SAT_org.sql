@@ -12,7 +12,7 @@ BEGIN TRY
         BEGIN
 
         UPDATE organisation
-            SET UKPRN = '10060971', URN = '141891', updatedAt=GETDATE()
+            SET UKPRN = '10060971', URN = NULL, updatedAt=GETDATE()
             WHERE id = @orgId;
 
         END;
