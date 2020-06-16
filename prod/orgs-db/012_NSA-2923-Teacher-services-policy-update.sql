@@ -127,8 +127,11 @@ BEGIN TRY
          (NEWID(), @policyidOrg, 'organisation.type.id', 'is', '46', GETDATE(), GETDATE());
 
     -- adding policy to role
-    INSERT INTO PolicyRole (PolicyId, RoleId, CreatedAt, UpdatedAt)
-    VALUES (@policyidOrg, @roleId, GETDATE(), GETDATE());
+    IF(SELECT COUNT(*) FROM PolicyRole WHERE PolicyId = @policyidOrg and RoleId=@roleId) = 0
+    BEGIN
+        INSERT INTO PolicyRole (PolicyId, RoleId, CreatedAt, UpdatedAt)
+        VALUES (@policyidOrg, @roleId, GETDATE(), GETDATE());
+    END;
 
 ROLLBACK TRAN TSEMPACCESS
 
