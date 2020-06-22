@@ -3,7 +3,7 @@ BEGIN TRAN ADDMANAGEROLE
 BEGIN TRY
 
     DECLARE @userId UNIQUEIDENTIFIER = 'fa932683-5055-428c-aff3-84b542ce400b';
-    DECLARE @orgName VARCHAR(500) = 'Assessment Service';
+    DECLARE @orgName VARCHAR(500) = 'Department for Education';
     DECLARE @orgId UNIQUEIDENTIFIER;
     DECLARE @serviceName VARCHAR(500) = 'DfE Sign-in manage';
     DECLARE @serviceId UNIQUEIDENTIFIER;
