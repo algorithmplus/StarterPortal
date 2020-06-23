@@ -4,6 +4,8 @@ BEGIN TRY
 
     DECLARE @serviceName VARCHAR(500) = 'SIMS Test';
     DECLARE @serviceId UNIQUEIDENTIFIER;
+    DECLARE @manageId UNIQUEIDENTIFIER;
+    DECLARE @numericId BIGINT;
 
     -- Step 1) get service Id based on name, if more than one found it will fail and go to catch block
     SET @serviceId = (SELECT id FROM service WHERE name = @serviceName);
@@ -20,6 +22,24 @@ BEGIN TRY
                     (@serviceId, 'https://preprod.pecuniam-online.co.uk/esfa.redirect/'),
                     (@serviceId, 'https://uat-v2.pecuniam-online.co.uk/esfa.redirect/'),
                     (@serviceId, 'http://localhost:8586/esfa.redirect/');
+
+            --Add Manage Roles
+            --service Config
+            SET @manageId = (SELECT id FROM service WHERE clientId = 'manage')
+            SET @numericId = NEXT VALUE FOR role_numeric_id_sequence;
+
+            INSERT INTO Role (Id, Name, ApplicationId, CreatedAt, UpdatedAt, Code, NumericId, ParentId)
+            SELECT  NEWID(),
+                    name + ' - Service Configuration',
+                    @manageId,
+                    GETDATE(),
+                    GETDATE(),
+                    UPPER(cast(id as varchar(40))) + '_serviceconfig',
+                    @numericId,
+                    NULL
+            FROM    service
+            WHERE   id = @serviceId
+
 
         END;
 
