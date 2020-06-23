@@ -35,7 +35,7 @@ BEGIN TRY
         PRINT 'Policy not deleted for the service  ' + convert(varchar(38), @serviceId);
     END;
 
-    IF(SELECT COUNT(*) FROM ROLE WHERE name = 'Teacher Services – Employers') = 0
+    IF(SELECT COUNT(*) FROM ROLE WHERE name = 'Teacher Services – Employers' and ApplicationId=@serviceId) = 0
     BEGIN
         SET @roleId = NEWID();
         SET @numericId = NEXT VALUE FOR role_numeric_id_sequence;
@@ -45,10 +45,10 @@ BEGIN TRY
 
     ELSE
     BEGIN
-        SET @roleId = (SELECT id FROM Role WHERE name = 'Teacher Services – Employers')
+        SET @roleId = (SELECT id FROM Role WHERE name = 'Teacher Services – Employers' and ApplicationId=@serviceId)
     END;
 
-    IF(SELECT COUNT(*) FROM POLICY WHERE name = 'TA Administration') = 0
+    IF(SELECT COUNT(*) FROM POLICY WHERE name = 'TA Administration' and ApplicationId=@serviceId) = 0
     BEGIN
         SET @policyidOrg = NEWID();
         INSERT INTO Policy (Id, Name, ApplicationId, Status, CreatedAt, UpdatedAt)
