@@ -15,7 +15,7 @@ BEGIN TRY
 
         -- Step 1) get service Id based on name, if more than one found it will fail and go to catch block
         SET @serviceId = (SELECT id FROM service WHERE name = 'DfE Sign-in manage');
-        IF (@serviceName IS NOT NULL)
+        IF (@serviceId IS NOT NULL)
 
             BEGIN
 
