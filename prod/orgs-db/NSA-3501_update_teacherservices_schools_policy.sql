@@ -26,6 +26,11 @@ BEGIN TRY
                     SET Name = 'Teacher Services - Employer Access - Schools', UpdatedAt = GETDATE()
                     WHERE id = @policyId;
 
+                --Create Policy Conditions - Organisations
+                INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
+                VALUES  (NEWID(), @policyId, 'organisation.status.id', 'is', '1', GETDATE(), GETDATE()),
+                        (NEWID(), @policyId, 'organisation.status.id', 'is', '3', GETDATE(), GETDATE());
+
             SET @policyConditionId = (SELECT id FROM PolicyCondition WHERE PolicyId = @policyId AND Field = 'organisation.id' AND VALUE = '243AE3E3-B8A0-46CE-ACE6-05A08A3D1C76');
             IF (@policyConditionId IS NOT NULL)
 
@@ -35,10 +40,6 @@ BEGIN TRY
                     DELETE FROM PolicyCondition
                         WHERE id = @policyConditionId;
 
-                    --Create Policy Conditions - Organisations
-                    INSERT INTO PolicyCondition (Id, PolicyId, Field, Operator, Value, CreatedAt, UpdatedAt)
-                    VALUES  (NEWID(), @policyId, 'organisation.status.id', 'is', '1', GETDATE(), GETDATE()),
-                            (NEWID(), @policyId, 'organisation.status.id', 'is', '3', GETDATE(), GETDATE());
 
                 END;
 
@@ -62,9 +63,6 @@ BEGIN TRY
                     INSERT INTO PolicyRole (PolicyId, RoleId, CreatedAt, UpdatedAt)
                     VALUES (@policyId_1, @roleId, GETDATE(), GETDATE());
 
-                    UPDATE Role
-                        SET Name = 'Evolve - Employer Access - Schools', UpdatedAt = GETDATE()
-                        WHERE id = @roleId;
 
                 END;
 
