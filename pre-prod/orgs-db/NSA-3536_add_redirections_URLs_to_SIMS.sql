@@ -33,6 +33,6 @@ BEGIN CATCH
 
      --Rollback if there was an error
      IF @@TRANCOUNT > 0
-          ROLLBACK TRAN UPDATESIMSURL;
+          ROLLBACK TRAN UPDATESIMSREDIRECTURL;
 
 END CATCH;
