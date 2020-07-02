@@ -1,4 +1,4 @@
-BEGIN TRAN UPDATESIMSREDIRECTURL
+BEGIN TRAN UPDATESIMSSERVICEREDIRECTURL
 
 BEGIN TRY
 
@@ -16,7 +16,7 @@ BEGIN TRY
                 (@serviceId, 'http://localhost:8587/tenant4/esfa.redirect');
 
         --Commit transaction if all went fine
-        ROLLBACK TRAN UPDATESIMSREDIRECTURL;
+        ROLLBACK TRAN UPDATESIMSSERVICEREDIRECTURL;
     END;
 
 END TRY
@@ -33,6 +33,6 @@ BEGIN CATCH
 
      --Rollback if there was an error
      IF @@TRANCOUNT > 0
-          ROLLBACK TRAN UPDATESIMSREDIRECTURL;
+          ROLLBACK TRAN UPDATESIMSSERVICEREDIRECTURL;
 
 END CATCH;
