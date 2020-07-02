@@ -1,14 +1,14 @@
-BEGIN TRAN UPDATESIMSREDIRECTURL
+BEGIN TRAN UPDATESIMSSERVICEREDIRECTURL
 
 BEGIN TRY
 
-     DECLARE @serviceId UNIQUEIDENTIFIER = '5f895ff4-6d68-4a5a-ac2b-5ab51c36b09f';
+     DECLARE @serviceId UNIQUEIDENTIFIER = '332d102d-d190-4551-b215-c82730723580';
 
     BEGIN
         -- Insert redirect URLs
         -- into SIMS Test Service
         INSERT INTO serviceRedirectUris (serviceId, redirectUrl)
-        VALUES (@serviceId, 'http://10.94.214.177:90/eseries/esfa.redirect'),
+        VALUES (@serviceId,  'http://10.94.214.177:90/eseries/esfa.redirect'),
                 (@serviceId, 'http://localhost:8001'),
                 (@serviceId, 'http://localhost:8001/eseries/esfa.redirect'),
                 (@serviceId, 'http://localhost:8586/eseries/esfa.redirect'),
@@ -16,7 +16,7 @@ BEGIN TRY
                 (@serviceId, 'http://localhost:8587/tenant4/esfa.redirect');
 
         --Commit transaction if all went fine
-        ROLLBACK TRAN UPDATESIMSREDIRECTURL;
+        ROLLBACK TRAN UPDATESIMSSERVICEREDIRECTURL;
     END;
 
 END TRY
@@ -33,6 +33,6 @@ BEGIN CATCH
 
      --Rollback if there was an error
      IF @@TRANCOUNT > 0
-          ROLLBACK TRAN UPDATESIMSREDIRECTURL;
+          ROLLBACK TRAN UPDATESIMSSERVICEREDIRECTURL;
 
 END CATCH;
