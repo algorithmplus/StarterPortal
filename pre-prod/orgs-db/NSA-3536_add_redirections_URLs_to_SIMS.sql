@@ -8,7 +8,7 @@ BEGIN TRY
         -- Insert redirect URLs
         -- into SIMS Test Service
         INSERT INTO serviceRedirectUris (serviceId, redirectUrl)
-        VALUES (@serviceId, 'http://10.94.214.177:90/eseries/esfa.redirect'),
+        VALUES (@serviceId,  'http://10.94.214.177:90/eseries/esfa.redirect'),
                 (@serviceId, 'http://localhost:8001'),
                 (@serviceId, 'http://localhost:8001/eseries/esfa.redirect'),
                 (@serviceId, 'http://localhost:8586/eseries/esfa.redirect'),
