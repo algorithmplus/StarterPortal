@@ -13,7 +13,6 @@ BEGIN TRY
     DECLARE @roleId_4 UNIQUEIDENTIFIER;
     DECLARE @roleId_5 UNIQUEIDENTIFIER;
     DECLARE @roleId_6 UNIQUEIDENTIFIER;
-    DECLARE @roleId_7 UNIQUEIDENTIFIER;
 
     -- Get Service Id based on name, if more than one found it will fail and go to catch block
     SET @serviceId = (SELECT id FROM service WHERE name = @serviceName AND clientId = 'assessmentService');
@@ -98,17 +97,6 @@ BEGIN TRY
                     VALUES  (@policyId, @roleId_6, GETDATE(), GETDATE());
 
                 END;
-
-            SET @roleId_7 = (SELECT id FROM Role WHERE ApplicationId = @serviceId AND Name = 'School User');
-            IF (@roleId_7 IS NOT NULL)
-
-                BEGIN
-
-                    DELETE FROM Role
-                        WHERE Id = @roleId_7;
-
-                END;
-
 
         END;
 
