@@ -105,7 +105,7 @@ BEGIN TRY
                 BEGIN
 
                     UPDATE Role
-                        SET Status = '0'
+                        SET Status = 0
                         WHERE Id = @roleId_7;
 
                 END;
