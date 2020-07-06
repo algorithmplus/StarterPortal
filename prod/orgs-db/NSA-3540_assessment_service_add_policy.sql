@@ -104,7 +104,8 @@ BEGIN TRY
 
                 BEGIN
 
-                    DELETE FROM Role
+                    UPDATE Role
+                        SET Status = 0
                         WHERE Id = @roleId_7;
 
                 END;
