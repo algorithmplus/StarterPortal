@@ -7,7 +7,7 @@ BEGIN TRY
     DECLARE @orgId UNIQUEIDENTIFIER;
 
     --get organisation Id based on name, if more than one found it will fail and go to catch block
-    SET @orgId = (SELECT id FROM organisation WHERE name = @orgName_1 AND Category = '051');
+    SET @orgId = (SELECT id FROM organisation WHERE name = @orgName_1 AND Category = '008');
     IF (@orgId IS NOT NULL)
 
         BEGIN
@@ -18,7 +18,7 @@ BEGIN TRY
 
         END;
 
-    SET @orgId = (SELECT id FROM organisation WHERE name = @orgName_2 AND Category = '051');
+    SET @orgId = (SELECT id FROM organisation WHERE name = @orgName_2 AND Category = '008');
     IF (@orgId IS NOT NULL)
 
         BEGIN

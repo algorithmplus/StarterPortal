@@ -31,7 +31,7 @@ BEGIN TRY
 
         END;
 
-    SET @orgId = (SELECT id FROM organisation WHERE name = @orgName_3 AND Category = '051');
+    SET @orgId = (SELECT id FROM organisation WHERE name = @orgName_3 AND Category = '008');
     IF (@orgId IS NOT NULL)
 
         BEGIN
@@ -42,7 +42,7 @@ BEGIN TRY
 
         END;
 
-    SET @orgId = (SELECT id FROM organisation WHERE name = @orgName_4 AND Category = '051');
+    SET @orgId = (SELECT id FROM organisation WHERE name = @orgName_4 AND Category = '008');
     IF (@orgId IS NOT NULL)
 
         BEGIN
