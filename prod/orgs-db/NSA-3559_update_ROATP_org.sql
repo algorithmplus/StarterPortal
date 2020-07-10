@@ -16,7 +16,7 @@ BEGIN TRY
 
         UPDATE organisation
             SET name = 'CODERS GUILD LTD', updatedAt=GETDATE()
-            WHERE id = @orgId AND UKPRN = '1005830';
+            WHERE id = @orgId AND UKPRN = '10058030';
 
         END;
 
