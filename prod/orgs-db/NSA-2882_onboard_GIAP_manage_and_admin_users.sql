@@ -30,10 +30,14 @@ BEGIN TRY
                 BEGIN
 
                     INSERT INTO user_services (id, status, user_id, organisation_id, service_id, createdAt, updatedAt)
-                    VALUES  (NEWID(), 1, 'd599de56-bf27-4171-b9df-45a32716f030', @orgId, @serviceId, GETDATE(), GETDATE());
+                    VALUES  (NEWID(), 1, 'd599de56-bf27-4171-b9df-45a32716f030', @orgId, @serviceId, GETDATE(), GETDATE()),
+                            (NEWID(), 1, 'f635bbff-79c7-4362-bea1-0c2eb02dd36e', @orgId, @serviceId, GETDATE(), GETDATE()),
+                            (NEWID(), 1, '2a811079-cb9e-46c1-ace5-3d910cad9db3', @orgId, @serviceId, GETDATE(), GETDATE());
 
                     INSERT INTO user_service_roles (id, user_id, service_id, organisation_id, role_id, createdAt, updatedAt)
-                    VALUES  (NEWID(), 'd599de56-bf27-4171-b9df-45a32716f030', @serviceId, @orgId, @roleId_1, GETDATE(), GETDATE());
+                    VALUES  (NEWID(), 'd599de56-bf27-4171-b9df-45a32716f030', @serviceId, @orgId, @roleId_1, GETDATE(), GETDATE()),
+                            (NEWID(), 'f635bbff-79c7-4362-bea1-0c2eb02dd36e', @serviceId, @orgId, @roleId_1, GETDATE(), GETDATE()),
+                            (NEWID(), '2a811079-cb9e-46c1-ace5-3d910cad9db3', @serviceId, @orgId, @roleId_1, GETDATE(), GETDATE());
 
                 END;
 
@@ -41,10 +45,6 @@ BEGIN TRY
             IF (@roleId_2 IS NOT NULL)
 
                 BEGIN
-
-                    INSERT INTO user_services (id, status, user_id, organisation_id, service_id, createdAt, updatedAt)
-                    VALUES  (NEWID(), 1, 'f635bbff-79c7-4362-bea1-0c2eb02dd36e', @orgId, @serviceId, GETDATE(), GETDATE()),
-                            (NEWID(), 1, '2a811079-cb9e-46c1-ace5-3d910cad9db3', @orgId, @serviceId, GETDATE(), GETDATE());
 
                     INSERT INTO user_service_roles (id, user_id, service_id, organisation_id, role_id, createdAt, updatedAt)
                     VALUES  (NEWID(), 'f635bbff-79c7-4362-bea1-0c2eb02dd36e', @serviceId, @orgId, @roleId_2, GETDATE(), GETDATE()),
@@ -61,7 +61,6 @@ BEGIN TRY
                     VALUES  (NEWID(), 1, '63643fe0-dfad-4d10-8449-216467baf825', @orgId, @serviceId, GETDATE(), GETDATE()),
                             (NEWID(), 1, '3a7e1dbd-346a-4ae9-9636-9dae77329323', @orgId, @serviceId, GETDATE(), GETDATE()),
                             (NEWID(), 1, '1b6d617b-9e4d-42ed-b4d7-9dc99bfa4997', @orgId, @serviceId, GETDATE(), GETDATE()),
-                            (NEWID(), 1, 'd599de56-bf27-4171-b9df-45a32716f030', @orgId, @serviceId, GETDATE(), GETDATE()),
                             (NEWID(), 1, '720a9a48-d737-4456-967e-68114738fb0d', @orgId, @serviceId, GETDATE(), GETDATE()),
                             (NEWID(), 1, '095f46ce-7192-4d94-a744-b6a68445664c', @orgId, @serviceId, GETDATE(), GETDATE()),
                             (NEWID(), 1, 'ad40a258-9509-4280-97a2-2008993ee265', @orgId, @serviceId, GETDATE(), GETDATE()),
@@ -73,11 +72,9 @@ BEGIN TRY
                             (NEWID(), 1, '127bee3a-6100-4081-bd5d-64abce42eed7', @orgId, @serviceId, GETDATE(), GETDATE()),
                             (NEWID(), 1, 'b3dcf295-ee54-41f5-84b5-dd315de19deb', @orgId, @serviceId, GETDATE(), GETDATE()),
                             (NEWID(), 1, '4d283109-c085-4f46-9bb2-371b75fc273b', @orgId, @serviceId, GETDATE(), GETDATE()),
-                            (NEWID(), 1, 'f635bbff-79c7-4362-bea1-0c2eb02dd36e', @orgId, @serviceId, GETDATE(), GETDATE()),
                             (NEWID(), 1, 'e4cef589-5594-4856-b2fd-21123fb3ffd3', @orgId, @serviceId, GETDATE(), GETDATE()),
                             (NEWID(), 1, '34b1fc92-47f5-43bf-8f48-4470f0d36e3d', @orgId, @serviceId, GETDATE(), GETDATE()),
-                            (NEWID(), 1, '6a043c8c-50ca-4158-8e22-78cf8267f84a', @orgId, @serviceId, GETDATE(), GETDATE()),
-                            (NEWID(), 1, '2a811079-cb9e-46c1-ace5-3d910cad9db3', @orgId, @serviceId, GETDATE(), GETDATE());
+                            (NEWID(), 1, '6a043c8c-50ca-4158-8e22-78cf8267f84a', @orgId, @serviceId, GETDATE(), GETDATE());
 
                     INSERT INTO user_service_roles (id, user_id, service_id, organisation_id, role_id, createdAt, updatedAt)
                     VALUES  (NEWID(), '63643fe0-dfad-4d10-8449-216467baf825', @serviceId, @orgId, @roleId_3, GETDATE(), GETDATE()),
