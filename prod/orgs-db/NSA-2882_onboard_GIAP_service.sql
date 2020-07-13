@@ -104,7 +104,15 @@ BEGIN TRY
                 (NEWID(), @policyId_3, 'id', 'is', 'd1103cf8-9d98-46b2-b3dc-f36911baf3b2', GETDATE(), GETDATE()),
                 (NEWID(), @policyId_3, 'id', 'is', '204545c3-4f34-4075-bcc3-50a06d4a22bc', GETDATE(), GETDATE()),
                 (NEWID(), @policyId_3, 'id', 'is', '6e4d4b01-e09a-430d-9def-7ed7686f7e36', GETDATE(), GETDATE()),
-                (NEWID(), @policyId_3, 'id', 'is', '23947f14-d2cf-4a24-a9e8-0c41a75e92a0', GETDATE(), GETDATE());
+                (NEWID(), @policyId_3, 'id', 'is', '23947f14-d2cf-4a24-a9e8-0c41a75e92a0', GETDATE(), GETDATE()),
+                (NEWID(), @policyId_3, 'id', 'is', '127bee3a-6100-4081-bd5d-64abce42eed7', GETDATE(), GETDATE()),
+                (NEWID(), @policyId_3, 'id', 'is', 'b3dcf295-ee54-41f5-84b5-dd315de19deb', GETDATE(), GETDATE()),
+                (NEWID(), @policyId_3, 'id', 'is', '4d283109-c085-4f46-9bb2-371b75fc273b', GETDATE(), GETDATE()),
+                (NEWID(), @policyId_3, 'id', 'is', 'f635bbff-79c7-4362-bea1-0c2eb02dd36e', GETDATE(), GETDATE()),
+                (NEWID(), @policyId_3, 'id', 'is', 'e4cef589-5594-4856-b2fd-21123fb3ffd3', GETDATE(), GETDATE()),
+                (NEWID(), @policyId_3, 'id', 'is', '34b1fc92-47f5-43bf-8f48-4470f0d36e3d', GETDATE(), GETDATE()),
+                (NEWID(), @policyId_3, 'id', 'is', '6a043c8c-50ca-4158-8e22-78cf8267f84a', GETDATE(), GETDATE()),
+                (NEWID(), @policyId_3, 'id', 'is', '2a811079-cb9e-46c1-ace5-3d910cad9db3', GETDATE(), GETDATE());
 
         --Step 3) Create roles and link to  associated policies
         --Create Role 'GIAP User' and link to policies 1 and 2
