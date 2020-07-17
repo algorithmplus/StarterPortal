@@ -23,7 +23,7 @@ BEGIN TRY
           VALUES(@organisationId, 'Supply Well Limited', '008', 1, '7th Floor, 4 St Pauls Square, Liverpool, L3 9SJ', @legacyId, GETDATE(), GETDATE());
         END;
 
-    Commit TRAN ADDDQTORGS
+    ROLLBACK TRAN ADDDQTORGS
 
 END TRY
 

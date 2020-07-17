@@ -5,22 +5,22 @@ BEGIN TRY
     DECLARE @organisationId UNIQUEIDENTIFIER
     DECLARE @legacyId AS BIGINT;
 
-    -- Edvantage LTD
+    -- Educ8 Services Ltd
     SET @organisationId = NEWID();
     SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
-      IF NOT EXISTS (SELECT * FROM organisation WHERE name = 'Edvantage LTD')
+      IF NOT EXISTS (SELECT * FROM organisation WHERE name = 'Educ8 Services Ltd')
         BEGIN
           INSERT INTO organisation(id, name, Category, Status, Address, legacyId, createdAt, updatedAt)
-          VALUES(@organisationId, 'Edvantage LTD', '008', 1, 'The Dower House, 108 High Street, Berkhamsted, Herts, HP4 2BL', @legacyId, GETDATE(), GETDATE());
+          VALUES(@organisationId, 'Educ8 Services Ltd', '008', 1, '20-22 WenLock Road, London, N1 7GU', @legacyId, GETDATE(), GETDATE());
         END;
 
-    -- Supply Well Limited
+    -- Breakthrough In Education Ltd
     SET @organisationId = NEWID();
     SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
-      IF NOT EXISTS (SELECT * FROM organisation WHERE name = 'Supply Well Limited')
+      IF NOT EXISTS (SELECT * FROM organisation WHERE name = 'Breakthrough In Education Ltd')
         BEGIN
           INSERT INTO organisation(id, name, Category, Status, Address, legacyId, createdAt, updatedAt)
-          VALUES(@organisationId, 'Supply Well Limited', '008', 1, '7th Floor, 4 St Pauls Square, Liverpool, L3 9SJ', @legacyId, GETDATE(), GETDATE());
+          VALUES(@organisationId, 'Breakthrough In Education Ltd', '008', 1, 'Manchester House, 113 Northgate Street, Bury Saint Edmunds, Suffolk, IP33 1HP', @legacyId, GETDATE(), GETDATE());
         END;
 
     ROLLBACK TRAN ADDDQTORGS
