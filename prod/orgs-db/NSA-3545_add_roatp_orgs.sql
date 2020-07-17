@@ -41,15 +41,6 @@ BEGIN TRY
           VALUES(@organisationId, 'FOUNDERS & CODERS C.I.C.', '051', 1, '10085696', @legacyId, GETDATE(), GETDATE());
         END;
 
-    -- GLOBAL ATS LIMITED
-    SET @organisationId = NEWID();
-    SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
-      IF NOT EXISTS (SELECT * FROM organisation WHERE UKPRN = '10065771')
-        BEGIN
-          INSERT INTO organisation(id, name, Category, Status, UKPRN, legacyId, createdAt, updatedAt)
-          VALUES(@organisationId, 'GLOBAL ATS LIMITED', '051', 1, '10065771', @legacyId, GETDATE(), GETDATE());
-        END;
-
     -- OPEN HEART CARE LTD
     SET @organisationId = NEWID();
     SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
@@ -66,15 +57,6 @@ BEGIN TRY
         BEGIN
           INSERT INTO organisation(id, name, Category, Status, UKPRN, legacyId, createdAt, updatedAt)
           VALUES(@organisationId, 'UNISERVE HOLDINGS LIMITED', '051', 1, '10085521', @legacyId, GETDATE(), GETDATE());
-        END;
-
-    -- WATERTON ACADEMY TRUST
-    SET @organisationId = NEWID();
-    SET @legacyId = NEXT VALUE FOR org_legacy_id_sequence;
-      IF NOT EXISTS (SELECT * FROM organisation WHERE UKPRN = '10060843')
-        BEGIN
-          INSERT INTO organisation(id, name, Category, Status, UKPRN, legacyId, createdAt, updatedAt)
-          VALUES(@organisationId, 'WATERTON ACADEMY TRUST', '051', 1, '10060843', @legacyId, GETDATE(), GETDATE());
         END;
 
     -- DEXTERS LONDON LIMITED
