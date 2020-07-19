@@ -1,20 +1,16 @@
 BEGIN TRAN GIAPAPPROVERS
 BEGIN TRY
 
-    DECLARE @serviceName_OLD VARCHAR(500) = 'Apply to convert';
-    DECLARE @serviceId_OLD UNIQUEIDENTIFIER;
+    DECLARE @serviceName_OLD_1 VARCHAR(500) = 'Key to Success (Schools)';
+    DECLARE @serviceId_OLD_1 UNIQUEIDENTIFIER;
+    DECLARE @serviceName_OLD_2 VARCHAR(500) = 'Key to Success (LAs)';
+    DECLARE @serviceId_OLD_2 UNIQUEIDENTIFIER;
     DECLARE @serviceName_NEW VARCHAR(500) = 'Get information about pupils';
     DECLARE @serviceId_NEW UNIQUEIDENTIFIER;
     DECLARE @roleName VARCHAR(500) = 'GIAP Approver';
     DECLARE @roleId UNIQUEIDENTIFIER;
     DECLARE @orgId UNIQUEIDENTIFIER;
     DECLARE @userId UNIQUEIDENTIFIER;
-    DECLARE @userIdList AS TABLE (user_id NVARCHAR(500), organisation_id NVARCHAR(500));
-    DECLARE @approverK2SId UNIQUEIDENTIFIER;
-    DECLARE @approverK2SIdList AS TABLE (count NVARCHAR(500), user_id NVARCHAR(500), organisation_id NVARCHAR(500));
-    DECLARE @approverMATSI UNIQUEIDENTIFIER;
-    DECLARE @approverMATSIdList AS TABLE (count NVARCHAR(500), user_id NVARCHAR(500), organisation_id NVARCHAR(500));
-
 
     --get service Id based on name, if more than one found it will fail and go to catch block
     SET @serviceId_NEW = (SELECT id FROM service WHERE name = @serviceName_NEW);
@@ -22,107 +18,187 @@ BEGIN TRY
 
         BEGIN
 
-        SET @serviceId_OLD = (SELECT id FROM service WHERE name = @serviceName_OLD);
-        IF (@serviceId_OLD IS NOT NULL)
+        SET @serviceId_OLD_1 = (SELECT id FROM service WHERE name = @serviceName_OLD_1);
+        IF (@serviceId_OLD_1 IS NOT NULL)
 
             BEGIN
 
-            SET @roleId = (SELECT id FROM Role WHERE name = @roleName);
-            IF (@roleId IS NOT NULL)
+            SET @serviceId_OLD_2 = (SELECT id FROM service WHERE name = @serviceName_OLD_2);
+            IF (@serviceId_OLD_2 IS NOT NULL)
 
                 BEGIN
 
-                      SELECT * INTO #TempTableService
-                       FROM user_services where service_id = @serviceId_NEW
-                END;
+                SET @roleId = (SELECT id FROM Role WHERE name = @roleName);
+                IF (@roleId IS NOT NULL)
 
-                BEGIN
-                      SELECT * INTO #TempTableRoles
-                       FROM user_service_roles where service_id = @serviceId_NEW and role_id = @roleId
-                END;
+                    BEGIN
 
-                BEGIN
+                        SELECT DISTINCT user_id, organisation_id, service_id INTO #TempTableServices
+                        FROM [user_services] where service_id = @serviceId_NEW;
 
-                    INSERT INTO @approverK2SIdList (count, user_id, organisation_id) SELECT COUNT(1), us.user_id, us.organisation_id FROM [user_services] us INNER JOIN [user_organisation] uo  on us.user_id = uo.user_id  WHERE service_id = '03bc03c1-8661-4fcd-8ea0-70ee1b9585c8' AND role_id = '10000' GROUP BY us.user_id, us.organisation_id;
-                    IF (SELECT COUNT (*) FROM @approverK2SIdList ) > 0
+                        SELECT DISTINCT uo.user_id, uo.organisation_id, us.service_id INTO #TempTableMATServices
+                        FROM [user_organisation] uo INNER JOIN [organisation] o on o.id = uo.organisation_id INNER JOIN [user_services] us on us.organisation_id = uo.organisation_id WHERE o.Category = '010' AND role_id = '10000';
+
+                        SELECT DISTINCT us.user_id, us.service_id, us.organisation_id INTO #TempTableK2SServices_1
+                        FROM [user_services] us INNER JOIN [user_organisation] uo on uo.user_id = us.user_id WHERE us.service_id = @serviceId_OLD_1 AND uo.role_id = '10000';
+
+                        SELECT DISTINCT us.user_id, us.service_id, us.organisation_id INTO #TempTableK2SServices_2
+                        FROM [user_services] us INNER JOIN [user_organisation] uo on uo.user_id = us.user_id WHERE us.service_id = @serviceId_OLD_2 AND uo.role_id = '10000';
+
+                        SELECT DISTINCT user_id, service_id, organisation_id, role_id INTO #TempTableRoles
+                        FROM [user_service_roles] where service_id = @serviceId_NEW and role_id = @roleId
+
+                        SELECT DISTINCT usr.user_id, usr.service_id,  usr.organisation_id, usr.role_id INTO #TempTableMATRoles
+                        FROM [user_organisation] uo INNER JOIN [organisation] o on o.id = uo.organisation_id INNER JOIN [user_service_roles] usr on usr.organisation_id = uo.organisation_id WHERE o.Category = '010' AND uo.role_id = '10000';
+
+                        SELECT DISTINCT usr.user_id, usr.service_id, usr.organisation_id, usr.role_id INTO #TempTableK2SRoles_1
+                        FROM [user_service_roles] usr INNER JOIN [user_organisation] uo  on uo.organisation_id = usr.organisation_id WHERE usr.service_id = @serviceId_OLD_1 AND uo.role_id = '10000';
+
+                        SELECT DISTINCT usr.user_id, usr.service_id, usr.organisation_id, usr.role_id INTO #TempTableK2SRoles_2
+                        FROM [user_service_roles] usr INNER JOIN [user_organisation] uo  on uo.organisation_id = usr.organisation_id WHERE usr.service_id = @serviceId_OLD_2 AND uo.role_id = '10000';
+
+                    END;
+
+                    BEGIN
+
+                        SELECT user_id, organisation_id, service_id INTO #TempTableUserServices FROM #TempTableServices
+                        UNION
+                        SELECT user_id, organisation_id, service_id FROM #TempTableMATServices
+                        UNION
+                        SELECT  user_id, organisation_id, service_id FROM #TempTableK2SServices_1
+                        UNION
+                        SELECT  user_id, organisation_id, service_id FROM #TempTableK2SServices_2
+
+                    END;
+
+                    BEGIN
+
+                        SELECT user_id, organisation_id, service_id, role_id INTO #TempTableUserRoles FROM #TempTableRoles
+                        UNION
+                        SELECT user_id, organisation_id, service_id, role_id FROM #TempTableMATRoles
+                        UNION
+                        SELECT  user_id, organisation_id, service_id, role_id FROM #TempTableK2SRoles_1
+                        UNION
+                        SELECT  user_id, organisation_id, service_id, role_id FROM #TempTableK2SRoles_2
+
+                    END;
+
+                    BEGIN
+
+                    IF (SELECT COUNT (*) FROM #TempTableUserServices ) > 0
 
                         BEGIN
 
-                            DECLARE db_cursor CURSOR FOR SELECT user_id, organisation_id FROM @approverK2SIdList;
-                                OPEN db_cursor;
+                            DECLARE db_cursor CURSOR FOR SELECT user_id, organisation_id FROM #TempTableUserServices;
+                            OPEN db_cursor;
 
                                 FETCH NEXT FROM db_cursor INTO @userId, @orgId;
 
                                 WHILE @@FETCH_STATUS = 0
 
-                                BEGIN
+                                    BEGIN
 
-                                --INSERT into User Services
-                                IF NOT EXISTS (SELECT @userId, @orgId from @approverK2SIdList)
-                                INSERT INTO user_services (id, status, user_id, organisation_id, service_id, createdAt, updatedAt)
-                                VALUES (NEWID(), 1, @userId, @orgId, @serviceId_NEW, GETDATE(), GETDATE());
+                                    --INSERT into User Services
+                                    INSERT INTO user_services (id, status, user_id, organisation_id, service_id, createdAt, updatedAt)
+                                    VALUES (NEWID(), 1, @userId, @orgId, @serviceId_NEW, GETDATE(), GETDATE());
 
-                                INSERT INTO user_service_roles (id, user_id, service_id, organisation_id, role_id, createdAt, updatedAt)
-                                VALUES  (NEWID(), @userId, @serviceId_NEW, @orgId, @roleId, GETDATE(), GETDATE());
+                                    FETCH NEXT FROM db_cursor INTO @userId, @orgId;
 
+                                    END;
 
-                                FETCH NEXT FROM db_cursor INTO @userId, @orgId;
+                                CLOSE db_cursor;
+                                DEALLOCATE db_cursor;
 
-                                END;
-                            CLOSE db_cursor;
-                            DEALLOCATE db_cursor;
-
-                        END;
+                        END
 
                     END;
 
-                BEGIN
+                    BEGIN
 
-                    INSERT INTO @approverMATSIdList (count, user_id, organisation_id) SELECT COUNT(1), uo.user_id, uo.organisation_id FROM [user_organisation] uo INNER JOIN [organisation] o on o.id = UO.organisation_id WHERE Category = '010' AND role_id = '10000' GROUP BY uo.user_id, uo.organisation_id;
-
-                    IF (SELECT COUNT (*) FROM @approverMATSIdList ) > 0
+                    IF (SELECT COUNT (*) FROM #TempTableUserRoles ) > 0
 
                         BEGIN
 
-                            DECLARE db_cursor CURSOR FOR SELECT user_id, organisation_id FROM @approverMATSIdList;
-                                OPEN db_cursor;
+                            DECLARE db_cursor CURSOR FOR SELECT user_id, organisation_id FROM #TempTableUserRoles;
+                            OPEN db_cursor;
 
                                 FETCH NEXT FROM db_cursor INTO @userId, @orgId;
 
                                 WHILE @@FETCH_STATUS = 0
 
-                                BEGIN
+                                    BEGIN
 
-                                --INSERT into User Services
-                                IF NOT EXISTS (SELECT @userId, @orgId from @approverMATSIdList)
-                                INSERT INTO user_services (id, status, user_id, organisation_id, service_id, createdAt, updatedAt)
-                                VALUES (NEWID(), 1, @userId, @orgId, @serviceId_NEW, GETDATE(), GETDATE());
+                                    --INSERT into User Service Roles
+                                    INSERT INTO user_service_roles (id, user_id, service_id, organisation_id, role_id, createdAt, updatedAt)
+                                    VALUES (NEWID(), @userId, @serviceId_NEW, @orgId, @roleId, GETDATE(), GETDATE());
 
-                                INSERT INTO user_service_roles (id, user_id, service_id, organisation_id, role_id, createdAt, updatedAt)
-                                VALUES  (NEWID(), @userId, @serviceId_NEW, @orgId, @roleId, GETDATE(), GETDATE());
+                                    FETCH NEXT FROM db_cursor INTO @userId, @orgId;
 
+                                    END;
 
-                                FETCH NEXT FROM db_cursor INTO @userId, @orgId;
+                                CLOSE db_cursor;
+                                DEALLOCATE db_cursor;
 
-                                END;
-                            CLOSE db_cursor;
-                            DEALLOCATE db_cursor;
-
-                        END;
-
-                        BEGIN
-
-                        INSERT INTO user_services SELECT * FROM #TempTableService WHERE service_id  = @serviceId_NEW;
-                        INSERT INTO user_service_roles SELECT * FROM #TempTableRoles WHERE role_id = @roleId;
-
-                        END;
-
-                        DROP TABLE #TempTableService
-                        DROP TABLE #TempTableRoles
+                        END
 
                     END;
+
+                    BEGIN
+
+                        WITH cte AS (
+                            SELECT
+                                user_id,
+                                organisation_id,
+                                ROW_NUMBER() OVER (
+                                    PARTITION BY
+                                        user_id,
+                                        organisation_id
+                                    ORDER BY
+                                        user_id,
+                                        organisation_id
+                                ) row_num
+                            FROM
+                                user_services where service_id = @serviceId_NEW
+                        )
+                        DELETE FROM cte
+                        WHERE row_num > 1;
+
+                    END;
+
+                    BEGIN
+
+                        WITH cte AS (
+                            SELECT
+                                user_id,
+                                organisation_id,
+                                ROW_NUMBER() OVER (
+                                    PARTITION BY
+                                        user_id,
+                                        organisation_id
+                                    ORDER BY
+                                        user_id,
+                                        organisation_id
+                                ) row_num
+                            FROM
+                                user_service_roles where service_id = @serviceId_NEW AND role_id = @roleId
+                        )
+                        DELETE FROM cte
+                        WHERE row_num > 1;
+
+                    END;
+
+                END;
 
             END;
+
+                DROP TABLE #TempTableUserRoles;
+                DROP TABLE #TempTableMATRoles;
+                DROP TABLE #TempTableK2SRoles;
+                DROP TABLE #TempTableRoles;
+                DROP TABLE #TempTableUserServices;
+                DROP TABLE #TempTableMATServices;
+                DROP TABLE #TempTableK2SServices;
+                DROP TABLE #TempTableServices;
 
         END;
 
