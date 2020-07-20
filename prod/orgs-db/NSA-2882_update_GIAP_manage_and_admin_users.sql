@@ -10,8 +10,17 @@ BEGIN TRY
     -- Step 1) get organisation Id based on name, if more than one found it will fail and go to catch block
     SET @serviceId = (SELECT id FROM service WHERE name = @serviceName);
     IF (@serviceId IS NOT NULL)
+
         BEGIN
 
+         UPDATE service
+
+             SET serviceHome = 'https://get-information-pupils.service.gov.uk/'
+             WHERE id = @serviceId;
+
+         END;
+
+        BEGIN
         -- Step 1) get role Id based on name, if more than one found it will fail and go to catch block
         SET @roleId = (SELECT id FROM Role WHERE name = @roleName);
         IF (@roleId IS NOT NULL)
