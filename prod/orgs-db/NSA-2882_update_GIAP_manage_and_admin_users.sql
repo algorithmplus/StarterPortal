@@ -12,15 +12,6 @@ BEGIN TRY
     IF (@serviceId IS NOT NULL)
 
         BEGIN
-
-         UPDATE service
-
-             SET serviceHome = 'https://get-information-pupils.service.gov.uk/'
-             WHERE id = @serviceId;
-
-         END;
-
-        BEGIN
         -- Step 1) get role Id based on name, if more than one found it will fail and go to catch block
         SET @roleId = (SELECT id FROM Role WHERE name = @roleName);
         IF (@roleId IS NOT NULL)
@@ -35,7 +26,7 @@ BEGIN TRY
             BEGIN
 
                 UPDATE user_services
-                    SET service_id = @serviceId
+                    SET service_id = @serviceId, updatedAt  = GETDATE()
                     WHERE user_id IN ('095f46ce-7192-4d94-a744-b6a68445664c',
                                     'b3dcf295-ee54-41f5-84b5-dd315de19deb',
                                     'd1103cf8-9d98-46b2-b3dc-f36911baf3b2',
