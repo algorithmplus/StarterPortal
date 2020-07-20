@@ -1,9 +1,9 @@
 BEGIN TRAN GIAPAPPROVERS
 BEGIN TRY
 
-    DECLARE @serviceName_OLD_1 VARCHAR(500) = 'Key to Success (Schools)';
+    DECLARE @serviceName_OLD_1 VARCHAR(500) = 'Apply to convert';
     DECLARE @serviceId_OLD_1 UNIQUEIDENTIFIER;
-    DECLARE @serviceName_OLD_2 VARCHAR(500) = 'Key to Success (LAs)';
+    DECLARE @serviceName_OLD_2 VARCHAR(500) = 'Teacher Services - Employer Access - Schools';
     DECLARE @serviceId_OLD_2 UNIQUEIDENTIFIER;
     DECLARE @serviceName_NEW VARCHAR(500) = 'Get information about pupils';
     DECLARE @serviceId_NEW UNIQUEIDENTIFIER;
